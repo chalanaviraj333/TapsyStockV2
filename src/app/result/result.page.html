@@ -1,0 +1,253 @@
+<ion-header translucent>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button [defaultHref]="['tabs/tab1/year/', selectedCarDetails.carbrand, selectedCarDetails.model, startyear, endyear]"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Results</ion-title>
+    <ion-buttons slot="end">
+      <ion-menu-button menu="main-menu"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card>
+    <ion-grid>
+      <ion-row>
+        <ion-col size-xs="5">
+        <ion-img src="{{selectedCarDetails.image}}">
+
+        </ion-img>
+        </ion-col>
+        <ion-col size-xs="7">
+          <ion-card-subtitle color="success">{{selectedCarDetails.carbrand}} {{selectedCarDetails.model}} {{selectedCarDetails.selectedyear}}</ion-card-subtitle>
+          <ion-label>Blade: {{selectedCarDetails.blade || 'Not Given'}}</ion-label>
+          <br>
+          <ion-label>ID: {{selectedCarDetails.carID || 'Not Given'}}</ion-label>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    
+  </ion-card>
+
+
+  <!-- <div class="bodycontent">
+
+    <ion-card-subtitle color="primary">{{selectedBrand}} {{selectedModel}} {{selectedYear}}</ion-card-subtitle> -->
+
+       <!-- <ion-grid class="chipblade">
+        <ion-row>
+          <ion-col size="3">
+            <img src="./assets/img/icons/chip.png" width="50" height="25" />
+          </ion-col>
+          <ion-col size="3">
+            <b>{{programmingDetails.chip}}</b>
+          </ion-col>
+          <ion-col size="3">
+            <img src="./assets/img/icons/blade.png" width="50" height="25" />
+          </ion-col>
+          <ion-col size="3">
+            <b>{{programmingDetails.blade}}</b>
+          </ion-col>
+        </ion-row>
+      </ion-grid> -->
+
+  <!--    <ion-grid class="cardetails">
+        <h4>CAR DETAILS / PRICES</h4>
+
+        <ion-item lines="none">
+          <ion-label>
+            All Key Lost Method: {{modelPrices.programmingMethod}}
+          </ion-label>
+        </ion-item>
+
+        <ion-item lines="none">
+          <ion-label>
+            Gaining Access Method: {{modelPrices.accessMethod}}
+          </ion-label>
+        </ion-item>
+
+        <ion-row>
+          <ion-col size="6"></ion-col>
+          <ion-col size="3">location</ion-col>
+          <ion-col size="3">shop</ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="6">All Key Lost Remote</ion-col>
+          <ion-col size="3">{{modelPrices.allLostRemoteLocation}}</ion-col>
+          <ion-col size="3">{{modelPrices.allLostRemoteShop}}</ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="6">All Key Lost MFK</ion-col>
+          <ion-col size="3">{{modelPrices.allLostMFKLocation}}</ion-col>
+          <ion-col size="3">{{modelPrices.allLostMFKShop}}</ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="6">Spare Remote</ion-col>
+          <ion-col size="3">{{modelPrices.spareRemoteLocation}}</ion-col>
+          <ion-col size="3">{{modelPrices.spareRemoteShop}}</ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="6">Spare MFK</ion-col>
+          <ion-col size="3">{{modelPrices.spareMFKLocation}}</ion-col>
+          <ion-col size="3">{{modelPrices.spareMFKShop}}</ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="6">Ignition Repair</ion-col>
+          <ion-col size="3">{{modelPrices.ignitionRepairLocation}}</ion-col>
+          <ion-col size="3">{{modelPrices.ignitionRepairShop}}</ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="6">Key Shell Repair</ion-col>
+          <ion-col size="3">{{modelPrices.keyShellLocation}}</ion-col>
+          <ion-col size="3">{{modelPrices.keyShellShop}}</ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="6">Gaining Access</ion-col>
+          <ion-col size="3">{{modelPrices.gainingAccessLocation}}</ion-col>
+          <ion-col size="3">{{modelPrices.gainingAccessShop}}</ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="6">All Lock Change</ion-col>
+          <ion-col size="3">{{modelPrices.allLockChangeLocation}}</ion-col>
+          <ion-col size="3">{{modelPrices.allLockChangeShop}}</ion-col>
+        </ion-row>
+
+      </ion-grid>
+
+
+      <ion-grid class="obdtools">
+        <ion-row>
+          <ion-col size="4">
+            <img src="./assets/img/icons/smartpro.png" width="70" height="60" />
+          </ion-col>
+          <ion-col size="4">
+            <img src="./assets/img/icons/working.png" width="35" height="35" (click)="_smartProYes()" />
+            <ion-badge class="worknotworkbadge" color="success">{{programmingDetails.smartProYes}}</ion-badge>
+          </ion-col>
+          <ion-col size="4">
+            <img src="./assets/img/icons/notworking.png" width="35" height="35" (click)="_smartProNo()" />
+            <ion-badge class="worknotworkbadge" color="danger">{{programmingDetails.smartProNo}}</ion-badge>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="4">
+            <img src="./assets/img/icons/autel.png" width="70" height="60" />
+          </ion-col>
+          <ion-col size="4">
+            <img src="./assets/img/icons/working.png" width="35" height="35" (click)="_autelYes()" />
+            <ion-badge class="worknotworkbadge" color="success">{{programmingDetails.autelYes}}</ion-badge>
+          </ion-col>
+          <ion-col size="4">
+            <img src="./assets/img/icons/notworking.png" width="35" height="35" (click)="_autelNo()" />
+            <ion-badge class="worknotworkbadge" color="danger">{{programmingDetails.autelNo}}</ion-badge>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="4">
+            <img src="./assets/img/icons/xtool.png" width="70" height="60" />
+          </ion-col>
+          <ion-col size="4">
+            <img src="./assets/img/icons/working.png" width="35" height="35" (click)="_xtoolYes()" />
+            <ion-badge class="worknotworkbadge" color="success">{{programmingDetails.xtoolYes}}</ion-badge>
+          </ion-col>
+          <ion-col size="4">
+            <img src="./assets/img/icons/notworking.png" width="35" height="35" (click)="_xtoolNo()" />
+            <ion-badge class="worknotworkbadge" color="danger">{{programmingDetails.xtoolNo}}</ion-badge>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="4">
+            <img src="./assets/img/icons/obdstar.png" width="70" height="60" />
+          </ion-col>
+          <ion-col size="4">
+            <img src="./assets/img/icons/working.png" width="35" height="35" (click)="_obdStarYes()" />
+            <ion-badge color="success">{{programmingDetails.obdStarYes}}</ion-badge>
+          </ion-col>
+          <ion-col size="4">
+            <img src="./assets/img/icons/notworking.png" width="35" height="35" (click)="_obdStarNo()" />
+            <ion-badge color="danger">{{programmingDetails.obdStarNo}}</ion-badge>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-grid class="kdxhorseremotes">
+        <ion-row>
+          <ion-col size="4">
+            <img src="./assets/img/icons/kdremotes.png" width="70" height="60" />
+          </ion-col>
+          <ion-col size="4">
+            <img src="./assets/img/icons/working.png" width="35" height="35" (click)="_kdRemotesYes()" />
+            <ion-badge class="worknotworkbadge" color="success">{{programmingDetails.kdRemotesYes}}</ion-badge>
+          </ion-col>
+          <ion-col size="4">
+            <img src="./assets/img/icons/notworking.png" width="35" height="35" (click)="_kdRemotesNo()" />
+            <ion-badge class="worknotworkbadge" color="danger">{{programmingDetails.kdRemotesNo}}</ion-badge>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="4">
+            <img src="./assets/img/icons/xhorseremotes.png" width="70" height="60" />
+          </ion-col>
+          <ion-col size="4">
+            <img src="./assets/img/icons/working.png" width="35" height="35" (click)="_xHorseYes()" />
+            <ion-badge class="worknotworkbadge" color="success">{{programmingDetails.xHorseYes}}</ion-badge>
+          </ion-col>
+          <ion-col size="4">
+            <img src="./assets/img/icons/notworking.png" width="35" height="35" (click)="_xHorseNo()" />
+            <ion-badge class="worknotworkbadge" color="danger">{{programmingDetails.xHorseNo}}</ion-badge>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-grid class="notes">
+        <ion-item (click)="_carNotes()" lines="none">
+          <ion-label color="dark"><b>NOTES</b></ion-label>
+          <ion-badge color="dark" slot="end">{{ programmingDetails.notes?.length }}</ion-badge>
+        </ion-item>
+      </ion-grid> -->
+
+    <!-- </div> -->
+
+
+
+    <div id="errorContent">
+      <ion-chip *ngIf="isFetching" color="danger">
+        <ion-icon [name]=iconerror color="danger"></ion-icon>
+        <ion-label>{{printerror}}</ion-label>
+      </ion-chip>
+    </div>
+
+  <ion-card *ngFor="let remote of compitableremotes" class="originalremotes">
+    <img src="{{remote.image}}" width="320" height="320" />
+    <ion-card-header>
+      <ion-card-title>Original Remote
+        <img src="./assets/img/icons/{{remote.remotetype}}.png" width="40" height="40" />
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      Tapsy Code: {{remote.tapsycode}}
+      <br>
+      <b> Box Number: {{remote.boxnumber}} </b>
+      <br>
+      Blade: {{remote.inbuildblade}}
+      <br>
+      Chip: {{remote.inbuildchip}}
+      <br>
+      Notes:
+      <br>
+      <ion-text color="danger">
+        {{remote.notes}}
+      </ion-text>
+    </ion-card-content>
+  </ion-card>
+
+
+</ion-content>

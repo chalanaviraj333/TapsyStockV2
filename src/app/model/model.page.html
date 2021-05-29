@@ -1,0 +1,48 @@
+<ion-header translucent>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{selectedBrand}}</ion-title>
+    <!-- <ion-buttons slot="end">
+      <ion-button (click)="refreshImagesButton()" disabled>
+        <ion-icon slot="icon-only" ios="refresh-outline" md="refresh-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons> -->
+    <ion-buttons slot="end">
+      <ion-menu-button menu="main-menu"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+<ion-toolbar id="toolBarSearch" color="primary">
+  <ion-searchbar #search debounce="500" (ionChange)="_ionChange($event)" placeholder="Enter Models" showCancelButton="never" animated></ion-searchbar>
+</ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <div id="errorContent">
+    <ion-chip *ngIf="isFetching" color="danger">
+      <ion-icon [name]=iconerror color="danger"></ion-icon>
+      <ion-label>{{printerror}}</ion-label>
+    </ion-chip>
+  </div>
+  
+  <ion-card *ngFor="let model of searchedItem"
+    (click)="onClick(x = model.model, startyear = model.startyear, endyear = model.endyear)"
+    class="ion-activatable ripple-parent">
+    <ion-card-content>
+
+      <ion-row no-padding>
+        <ion-col size="7">
+          <ion-card-subtitle color="danger">{{model.startyear}}-{{model.endyear}}</ion-card-subtitle>
+          <ion-card-title>{{model.model}}</ion-card-title>
+        </ion-col>
+        <ion-col size="5">
+          <img src="{{model.icon}}">
+        </ion-col>
+      </ion-row>
+    </ion-card-content>
+    <ion-ripple-effect></ion-ripple-effect>
+  </ion-card>
+
+</ion-content>

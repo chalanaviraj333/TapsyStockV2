@@ -1,0 +1,39 @@
+<ion-header translucent>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/year"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{selectedmodel.model}} {{selectedmodel.startyear}} - {{selectedmodel.endyear}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <ion-card>
+      <ion-item lines="none">
+        <ion-label color="danger" position="stacked">Car Chip</ion-label>
+        <ion-input placeholder="ID48" type="text" ngModel name="chip" required></ion-input>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label color="danger" position="stacked">Car Blade</ion-label>
+        <ion-input placeholder="HU100" type="text" ngModel name="blade" required></ion-input>
+      </ion-item>
+
+      <ion-list>
+        <ion-label color="danger" class="comyears">Compatible Years</ion-label>
+        <ion-item *ngFor="let year of years" lines="none">
+          <ion-label>{{year.year}}</ion-label>
+          <ion-checkbox slot="end" (click)="_getSelectedYear(year)" ngModel name="year.isChecked"></ion-checkbox>
+        </ion-item>
+      </ion-list>
+      <br>
+    </ion-card>
+    <ion-button shape="round" color="success" class="doneButton" type="submit" expand="block">DONE</ion-button>
+  </form>
+
+  <ion-item class="errors" lines="none">
+    <ion-label color="danger" position="floating" *ngFor="let error of errorList">
+      {{error}}
+    </ion-label>
+  </ion-item>
+</ion-content>

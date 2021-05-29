@@ -1,0 +1,82 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Add Items</ion-title>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6" class="ion-no-padding" (click)="addCarBrand()">
+        <ion-card class="ion-activatable ripple-parent">
+          <ion-card-content>
+            <ion-card-subtitle color="success">ADD CAR BRAND</ion-card-subtitle>
+          </ion-card-content>
+          <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+        </ion-card>
+      </ion-col>
+      <ion-col size="6" class="ion-no-padding" (click)="addCarModel()">
+        <ion-card class="ion-activatable ripple-parent">
+          <ion-card-content>
+            <ion-card-subtitle color="success">ADD CAR MODEL</ion-card-subtitle>
+          </ion-card-content>
+          <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="6" class="ion-no-padding" (click)="addNewRemote()">
+        <ion-card class="ion-activatable ripple-parent">
+          <ion-card-content>
+            <ion-card-subtitle color="success">ADD NEW REMOTE</ion-card-subtitle>
+          </ion-card-content>
+          <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+        </ion-card>
+      </ion-col>
+      <ion-col size="6" class="ion-no-padding" (click)="addProgDetails()">
+        <ion-card class="ion-activatable ripple-parent">
+          <ion-card-content>
+            <ion-card-subtitle color="success">ADD PROG DETAILS</ion-card-subtitle>
+          </ion-card-content>
+          <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="6" class="ion-no-padding" (click)="editCarModel()">
+        <ion-card class="ion-activatable ripple-parent">
+          <ion-card-content>
+            <ion-card-subtitle color="danger">EDIT CAR MODEL</ion-card-subtitle>
+          </ion-card-content>
+          <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+        </ion-card>
+      </ion-col>
+      <ion-col size="6" class="ion-no-padding" (click)="editRemote()">
+        <ion-card class="ion-activatable ripple-parent">
+          <ion-card-content>
+            <ion-card-subtitle color="danger">EDIT CAR REMOTE</ion-card-subtitle>
+          </ion-card-content>
+          <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="6" class="ion-no-padding" (click)="editCarDetails()">
+        <ion-card class="ion-activatable ripple-parent">
+          <ion-card-content>
+            <ion-card-subtitle color="danger">EDIT CAR DETAILS</ion-card-subtitle>
+          </ion-card-content>
+          <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

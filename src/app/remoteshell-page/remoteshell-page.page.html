@@ -1,0 +1,44 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="keyshell">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Remote Shell</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="refreshImagesButton()" >
+        <ion-icon slot="icon-only" ios="refresh-outline" md="refresh-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-searchbar #search debounce="500" (ionChange)="_ionChange($event)" placeholder="Search by Brand or Blade" showCancelButton="never"></ion-searchbar>
+
+  <ion-card *ngFor="let remoteshell of searchedItem let i = index">
+    <ion-grid>
+      <ion-card-content>
+        <ion-row no-padding>
+          <ion-col size="6" text-center>
+            <ion-card-subtitle color={{remoteshell.remotetype}} id="boxNumber">BOX: {{remoteshell.boxnumber}}</ion-card-subtitle>
+            <ion-card-subtitle color="medium">BLADE:{{remoteshell.blade}}</ion-card-subtitle>
+            <ion-card-subtitle color="medium">Buttons:{{remoteshell.buttons}}</ion-card-subtitle>
+            <ion-card-subtitle color="medium">Notes:{{remoteshell.notes}}</ion-card-subtitle>
+            <ion-button size="small" shape="round" fill="outline" (click)="_lowStock(i, x= remoteshell.key)" disabled={{!remoteshell.inStock}}>LOW STOCK</ion-button>
+            <ion-button size="small" shape="round" fill="outline" (click)="_deleteRemoteShell(i, x= remoteshell.key)" color="danger">DELETE</ion-button>
+          </ion-col>
+          <ion-col size="6">
+            <img src="{{remoteshell.image}}" width="120" height="120" />
+            <ion-chip *ngIf="!remoteshell.inStock">
+              <ion-label color="danger">Low Stock</ion-label>
+            </ion-chip>
+          </ion-col>
+        </ion-row>
+      </ion-card-content>
+    </ion-grid>
+    <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+  </ion-card>
+
+</ion-content>

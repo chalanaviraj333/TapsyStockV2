@@ -1,0 +1,60 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <!-- <ion-buttons slot="end">
+      <ion-button (click)="refreshImagesButton()" disabled>
+        <ion-icon slot="icon-only" ios="refresh-outline" md="refresh-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons> -->
+    <ion-buttons slot="end">
+      <ion-menu-button menu="main-menu"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Car Brands</ion-title>
+  </ion-toolbar>
+  <ion-toolbar color="primary">
+    <ion-searchbar #search debounce="500" (ionChange)="_ionChange($event)" placeholder="Enter Brand" showCancelButton="never" animated></ion-searchbar>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content>
+
+  <ion-card *ngFor="let carbrand of searchedItem" (click)="onClick(x = carbrand.name)" class="ion-activatable ripple-parent">
+      <ion-grid>
+        <ion-row class="ion-align-items-center">
+          <ion-col size-xs="9" size-sm="6">
+            <h2 class="alphabhetContent">
+              {{carbrand.name.charAt(0)}}
+            </h2>
+            <h2 class="carbrandName">
+              {{carbrand.name.slice(1)}}
+            </h2>
+          </ion-col>
+          <ion-col size-xs="3">
+            <img src="{{carbrand.icon}}" width="50" height="50">
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+
+  </ion-card>
+
+
+</ion-content>
+<!-- <ion-content [fullscreen]="true">
+
+  
+  <ion-grid>
+    <ion-row>
+      <ion-col size-xs="4" class="ion-no-padding" *ngFor="let item of searchedItem" (click)="onClick(x = item.name)">
+        <ion-card class="ion-activatable ripple-parent">
+          <ion-card-content>
+            <img src="{{item.icon}}" width="120" height="120">
+            <ion-card-subtitle color="medium">{{item.name}}</ion-card-subtitle>
+          </ion-card-content>
+          <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid> -->
+
+<!-- </ion-content> -->

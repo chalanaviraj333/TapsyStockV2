@@ -1,0 +1,41 @@
+<ion-header translucent>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Add Car Model</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <ion-card>
+      <ion-item lines="none">
+        <ion-label color="danger" position="stacked">Car Brand</ion-label>
+        <ion-select ngModel name="carbrand">
+          <ion-select-option *ngFor="let brand of brands" [value]="carbrand">{{brand}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-label color="danger" position="stacked">Car Model</ion-label>
+        <ion-input placeholder="Ranger" type="text" ngModel name="carmodel" required></ion-input>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label color="danger" position="stacked">Start Year</ion-label>
+        <ion-input placeholder="2005" type="number" ngModel name="startyear" required></ion-input>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label color="danger" position="stacked">End Year</ion-label>
+        <ion-input placeholder="2015" type="number" ngModel name="endyear" required></ion-input>
+      </ion-item>
+    </ion-card>
+    <ion-button shape="round" color="success" class="doneButton" type="submit" expand="block">DONE</ion-button>
+  </form>
+
+  <ion-item class="errors" lines="none">
+    <ion-label color="danger" position="floating" *ngFor="let error of errorList">
+      {{error}}
+    </ion-label>
+  </ion-item>
+</ion-content>
