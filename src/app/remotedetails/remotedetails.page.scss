@@ -60,3 +60,15 @@ lowStockButton {
     color: #ff4961;
     font-size: 30px;
 }
+
+.remotetypebox {
+    color: #7049ff;
+}
+
+.remotetypebox::content {
+    margin-top: auto;
+    margin-bottom: auto;
+    font-family: rucksack,sans-serif;
+    font-weight: 700;
+    font-style: normal;
+}

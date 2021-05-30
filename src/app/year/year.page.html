@@ -17,8 +17,10 @@
       <ion-col size="6" class="ion-no-padding" *ngFor="let year of years" (click)="onSelect(year.modelyear)">
         <ion-card>
           <ion-item class="ion-activatable ripple-parent" lines="none">
+            <ion-icon slot="end" *ngIf="year.yearinformations" name="information-circle" color="danger" size="medium"></ion-icon>
             <ion-icon slot="end" *ngIf="year.availableremotes" name="checkmark-circle" color="success" size="medium"></ion-icon>
-            <ion-label>
+            
+            <ion-label color="primary">
               {{year.modelyear}} 
             </ion-label>
             <ion-ripple-effect type="unbounded"></ion-ripple-effect>

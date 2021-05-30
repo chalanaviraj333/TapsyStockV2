@@ -26,21 +26,21 @@
 
   </div>
   
-  <ion-card *ngFor="let remote of remotes; let i = index" class="ion-activatable ripple-parent">
+  <ion-card *ngFor="let lowstockitem of lowstockItems; let i = index">
   <ion-grid>
     <ion-card-content>
       <ion-row no-padding>
         <ion-col size="6" text-center>
-          <ion-card-subtitle color={{remote.remotetype}} id="boxNumber">BOX: {{remote.boxnumber}}</ion-card-subtitle>
-          <ion-card-subtitle color="medium">CODE:{{remote.tapsycode}}</ion-card-subtitle>
-          <ion-button size="small" shape="round" fill="solid" (click)="_stockadded(i, x = remote.key)">Stock Added</ion-button>
+          <ion-card-subtitle id="boxNumber">BOX: {{lowstockitem.boxno}}</ion-card-subtitle>
+          <ion-card-subtitle color="medium">CODE:{{lowstockitem.tapsycode}}</ion-card-subtitle>
+          <ion-button size="small" shape="round" fill="solid" (click)="_stockadded(i, lowstockitemtapsycode = lowstockitem.tapsycode, 
+          selecteditemtype = lowstockitem.itemtype, lowstockitemkey = lowstockitem.key)">Stock Added</ion-button>
         </ion-col>
         <ion-col size="6">
-          <img src="{{remote.image}}" width="120" height="120" />
+          <img src="{{lowstockitem.image}}" width="120" height="120" />
         </ion-col>
       </ion-row>
     </ion-card-content>
   </ion-grid>
-  <ion-ripple-effect type="unbounded"></ion-ripple-effect>
 </ion-card>
 </ion-content>

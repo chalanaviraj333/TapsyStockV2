@@ -4,11 +4,6 @@
       <ion-back-button defaultHref="/"></ion-back-button>
     </ion-buttons>
     <ion-title>{{selectedBrand}}</ion-title>
-    <!-- <ion-buttons slot="end">
-      <ion-button (click)="refreshImagesButton()" disabled>
-        <ion-icon slot="icon-only" ios="refresh-outline" md="refresh-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons> -->
     <ion-buttons slot="end">
       <ion-menu-button menu="main-menu"></ion-menu-button>
     </ion-buttons>
@@ -18,7 +13,7 @@
 </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" [scrollEvents]="true" (ionScrollStart)="logScrollStart()">
 
   <div id="errorContent">
     <ion-chip *ngIf="isFetching" color="danger">
@@ -44,5 +39,11 @@
     </ion-card-content>
     <ion-ripple-effect></ion-ripple-effect>
   </ion-card>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="ScrollToTop()" *ngIf="hideButton">
+      <ion-icon name="arrow-up-circle"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 
 </ion-content>

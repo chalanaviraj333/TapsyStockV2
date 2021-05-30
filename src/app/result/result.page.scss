@@ -1,66 +1,3 @@
-.cardetails {
-    border-radius: 15px;
-    box-shadow: 1px 1px 5px 0px rgba(73, 4, 138, 0.315);
-}
-
-h3 {
-    font-family:'Times New Roman', Times, serif;
-}
-
-
-.chipblade {
-    border-color: #144696;
-    border-style: solid;
-    border-radius: 15px;
-    box-shadow: 1px 1px 5px 0px rgba(84, 6, 156, 0.315);
-    margin-bottom: 10px;
-}
-
-.obdtools {
-    border-color: #149655;
-    border-style: solid;
-    border-radius: 15px;
-    box-shadow: 1px 1px 5px 0px rgba(84, 6, 156, 0.315);
-    margin-bottom: 10px;
-}
-
-.kdxhorseremotes {
-    border-color: #940000;
-    border-style: solid;
-    border-radius: 15px;
-    box-shadow: 1px 1px 5px 0px rgba(84, 6, 156, 0.315);
-    margin-bottom: 10px;
-}
-
-.notes {
-    border-style: solid;
-    border-radius: 15px;
-    box-shadow: 1px 1px 5px 0px rgba(84, 6, 156, 0.315);
-}
-
-.worknotworkbadge {
-    margin-bottom: 15px;
-}
-
-.originalremotes {
-    border-radius: 15px;
-    box-shadow: 1px 1px 5px 0px rgba(73, 4, 138, 0.315);
-}
-
-
-.bodycontent {
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.cardetails {
-    border-color: #149655;
-    border-style: solid;
-    border-radius: 15px;
-    box-shadow: 1px 1px 5px 0px rgba(84, 6, 156, 0.315);
-    margin-bottom: 10px;
-}
 
 h4 {
     margin-top: 0%;
@@ -71,4 +8,59 @@ h4 {
 #errorContent {
     text-align: center;
     margin-top: 5px;
+}
+
+.detailtitles{
+    font-family: rucksack,sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 30px;
+}
+
+.remotedetails {
+    font-family: rucksack,sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    color: #240370;
+    font-size: 30px;
+}
+
+.remotetypebox {
+    color: #7049ff;
+}
+
+.remotetypebox::content {
+    margin-top: auto;
+    margin-bottom: auto;
+    font-family: rucksack,sans-serif;
+    font-weight: 700;
+    font-style: normal;
+}
+
+#toprow {
+    height: 100%;
+    vertical-align: middle;
+}
+
+#lowstockErrorcontent {
+    text-align: center;
+    margin-top: 5px;
+}
+
+.addnoteStyle {
+    font-family: rucksack,sans-serif;
+    font-weight: 700;
+    font-style: normal;
+}
+
+.carnotes {
+    font-family: brandon-grotesque,sans-serif;
+    font-weight: 400;
+    font-style: italic;
+    padding-bottom: 5px;
+}
+
+ion-card {
+    box-shadow: 1px 1px 5px 0px rgba(84, 6, 156, 0.315);
+    border-radius: 10px;
 }

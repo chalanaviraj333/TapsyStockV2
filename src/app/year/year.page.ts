@@ -1,22 +1,21 @@
 import { HttpClient } from "@angular/common/http";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-
-interface Remote {
-  tapsycode: string;
-  boxnumber: number;
-  inbuildchip: string;
-  inbuildblade: string;
-  remotetype: string;
-  compitablebrands: Array<string>;
-  image: string;
-  notes: string;
-  compitablecars: Array<Object>;
-}
+import { NavparamService } from "../navparam.service";
+import { Remote } from "../remote";
 
 interface Year {
   modelyear: number;
   availableremotes: boolean;
+  yearinformations: boolean;
+}
+
+interface CarNote {
+  key?: string;
+  brand?: string;
+  model?: string;
+  selectedyear?: number;
+  carnotesDescription?: string;
 }
 
 @Component({
@@ -24,7 +23,7 @@ interface Year {
   templateUrl: "./year.page.html",
   styleUrls: ["./year.page.scss"],
 })
-export class YearPage implements OnInit {
+export class YearPage implements OnInit, OnDestroy {
   car: any;
   public selectedModel: string;
   private startyear: number;
@@ -35,7 +34,8 @@ export class YearPage implements OnInit {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private http: HttpClient
+    private http: HttpClient,
+    private navParamService: NavparamService
   ) {
     this.activatedRoute.paramMap.subscribe((paramMap) => {
       if (
@@ -57,7 +57,11 @@ export class YearPage implements OnInit {
     const remotesCompatibleCarArray = [];
 
     for (let i = this.startyear; i <= this.endyear; i++) {
-      this.years.push({ modelyear: i, availableremotes: false });
+      this.years.push({
+        modelyear: i,
+        availableremotes: false,
+        yearinformations: false,
+      });
     }
 
     this.http
@@ -84,7 +88,38 @@ export class YearPage implements OnInit {
           });
         }
       });
+
+    this.http
+      .get<{ [key: string]: CarNote }>(
+        "https://tapsystock-a6450-default-rtdb.firebaseio.com/carprogrammingdetailsV2.json"
+      )
+      .subscribe((resData) => {
+        for (const key in resData) {
+          this.years.forEach((year) => {
+            if (
+              resData[key].brand == this.selectedBrand &&
+              resData[key].model == this.selectedModel &&
+              resData[key].selectedyear === year.modelyear
+            ) {
+              year.yearinformations = true;
+            }
+          });
+        }
+      });
   }
+
+  ionViewWillEnter() {
+    const justAddedNoteYear = this.navParamService.getCarNote();
+
+    if (justAddedNoteYear !== undefined) {
+      this.years.find(
+        (i) => i.modelyear === justAddedNoteYear
+      ).yearinformations = true;
+      this.navParamService.setCarNote(undefined);
+    }
+  }
+
+  ngOnDestroy() {}
 
   onSelect(year) {
     const selectedYear = year;
