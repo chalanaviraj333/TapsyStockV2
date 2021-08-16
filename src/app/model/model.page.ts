@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { HttpClient } from "@angular/common/http";
-
-import "firebase/storage";
 import { IonContent, IonSearchbar } from "@ionic/angular";
+import { DatabaseServiceService } from "../database-service.service";
+
 
 interface Model {
   key: string;
@@ -25,6 +25,8 @@ export class ModelPage implements OnInit {
   private models: Array<Model> = [];
   public searchedItem: Array<Model> = [];
   public selectedBrand: string;
+
+  private carModelswithoutImages: Array<Model> = [];
   printerror = "LOADING";
   iconerror = "happy-outline";
   isFetching = true;
@@ -34,8 +36,10 @@ export class ModelPage implements OnInit {
   constructor(
     private router: Router,
     private http: HttpClient,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    public databaseService: DatabaseServiceService
   ) {
+
     this.activatedRoute.paramMap.subscribe((paramMap) => {
       if (!paramMap.has("brandId")) {
         // redirect
@@ -46,6 +50,7 @@ export class ModelPage implements OnInit {
   }
 
   ngOnInit() {
+
     this.http
       .get<{ [key: string]: Model }>(
         "https://tapsystock-a6450-default-rtdb.firebaseio.com/car-model.json"
@@ -74,6 +79,12 @@ export class ModelPage implements OnInit {
           this.printerror = "No Models Found";
           this.iconerror = "sad-outline";
         }
+
+        this.searchedItem.forEach((carmodel) => {
+          if (carmodel.icon.length < 50) {
+            this.carModelswithoutImages.push(carmodel);
+          }
+        });
       });
   }
 
@@ -116,4 +127,5 @@ export class ModelPage implements OnInit {
       this.hideButton = false;
     }, 4000);
   }
+
 }

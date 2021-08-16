@@ -2,13 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { IonContent, IonSearchbar } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
-
-
-interface Brand {
-  key: string;
-  name: string;
-  icon: string;
-}
+import { ModalserviceService } from '../modalservice.service';
+import { Carbrand } from '../carbrand';
 
 @Component({
   selector: 'app-tab1',
@@ -20,18 +15,20 @@ export class Tab1Page implements OnInit {
   @ViewChild('search', { static: false }) search: IonSearchbar;
   @ViewChild(IonContent, { static: false }) content: IonContent;
 
-  public brands: Array<Brand> = [];
+  public brands: Array<Carbrand> = [];
   public searchedItem: any;
   public hideButton: boolean = false;
 
   constructor(
-    private router: Router, private http: HttpClient
+    private router: Router, private http: HttpClient, private modalControlService: ModalserviceService
   ) {
 
   }
 
   ngOnInit() {
-    this.http.get<{ [key: string]: Brand }>('https://tapsystock-a6450-default-rtdb.firebaseio.com/car-brand.json')
+
+    // till here
+    this.http.get<{ [key: string]: Carbrand }>('https://tapsystock-a6450-default-rtdb.firebaseio.com/car-brand.json')
       .subscribe(resData => {
         for (const key in resData) {
           if (resData.hasOwnProperty(key)){
@@ -45,11 +42,10 @@ export class Tab1Page implements OnInit {
      
 
     this.searchedItem = this.brands;
-
   }
 
-  onClick(carbrandname) {
-    this.router.navigateByUrl('tabs/tab1/model/' + carbrandname);
+  onClick(selectedcarbrand) {
+    this.router.navigateByUrl('tabs/tab1/model/' + selectedcarbrand);
   }
 
   _ionChange(event) {
@@ -65,24 +61,6 @@ export class Tab1Page implements OnInit {
   }
 
 
-  addbutton() {
-
-    this.router.navigateByUrl('additems');
-  }
-
-  refreshImagesButton(){  
-    this.brands.forEach(brand => {
-      this.http.put(`https://tapsystock-a6450-default-rtdb.firebaseio.com/car-brand/${brand.key}.json`,
-        {...brand, key: null}).subscribe(
-          resData => {
-        console.log(resData);
-        }
-    );
-      
-    });
-
-  }
-
   logScrollStart() {
     setTimeout(() => {
       this.hideButton = true;
@@ -95,6 +73,10 @@ export class Tab1Page implements OnInit {
       this.hideButton = false;
     }, 4000);
     
+  }
+
+  onClickViewBrandProducts(selectedbrand: string) {
+    this.modalControlService.onClickViewBrandProducts(selectedbrand);
   }
 
 }

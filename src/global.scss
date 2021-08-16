@@ -38,3 +38,33 @@
     overflow: hidden;
     color: #5a1f8c;
   }
+
+
+.my-add-notes-class .modal-wrapper{
+    --border-radius: 10px 10px 0px 0px;
+    --height: 50%;
+    top: 50%;
+    position: absolute;
+    display: block;
+    border-top: solid 2px #242424;
+  
+}
+
+.view-Remote-Details-class .modal-wrapper{
+    --border-radius: 10px 10px 0px 0px;
+    --height: 80%;
+    top: 20%;
+    position: absolute;
+    display: block;
+    border-top: solid 2px #242424;
+}
+
+.filtermodal-page-class .modal-wrapper{
+    --border-radius: 10px 10px 0px 0px;
+    --height: 50%;
+    top: 50%;
+    position: absolute;
+    display: block;
+    border-top: solid 2px #188841;
+  
+  }

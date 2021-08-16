@@ -96,7 +96,6 @@ export class Tab2Page implements OnInit, OnDestroy {
 
   onClick(x) {
     const selectedremote = x;
-
     this.router.navigateByUrl("tabs/tab2/remotedetails/" + selectedremote);
   }
 

@@ -9,11 +9,23 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
-  },  
-  {
-    path: 'lowstock-page',
-    loadChildren: () => import('./lowstock-page/lowstock-page.module').then( m => m.LowstockPagePageModule)
+  },   {
+    path: 'addnotes',
+    loadChildren: () => import('./addnotes/addnotes.module').then( m => m.AddnotesPageModule)
   },
+  {
+    path: 'remotedetailsmodal',
+    loadChildren: () => import('./remotedetailsmodal/remotedetailsmodal.module').then( m => m.RemotedetailsmodalPageModule)
+  },
+  {
+    path: 'productsbybrand',
+    loadChildren: () => import('./productsbybrand/productsbybrand.module').then( m => m.ProductsbybrandPageModule)
+  },
+  {
+    path: 'filter',
+    loadChildren: () => import('./filter/filter.module').then( m => m.FilterPageModule)
+  },
+
 ];
 @NgModule({
   imports: [

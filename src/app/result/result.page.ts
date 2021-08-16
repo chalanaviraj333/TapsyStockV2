@@ -1,18 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { NgForm } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Remote } from "../remote";
 import { NavparamService } from "../navparam.service";
-
-interface SelectedCar {
-  carbrand?: string;
-  model?: string;
-  selectedyear?: number;
-  blade?: string;
-  carID?: string;
-  image?: string;
-}
+import { ModalserviceService } from "../modalservice.service";
+import { RemoteShell } from "../remote-shell"
+import { SelectedCar } from "../selected-car";
+import { DatabaseServiceService } from "../database-service.service";
 
 interface Car {
   brand: string;
@@ -20,21 +14,6 @@ interface Car {
   icon: string;
 }
 
-interface CarNote {
-  key?: string;
-  brand?: string;
-  model?: string;
-  selectedyear?: number;
-  carnotesDescription?: string;
-}
-
-interface LowStockItem {
-  key?: string;
-  boxno: number;
-  tapsycode: string;
-  itemtype: string;
-  image: string;
-}
 
 @Component({
   selector: "app-result",
@@ -47,18 +26,27 @@ export class ResultPage implements OnInit {
 
   public selectedCarDetails: SelectedCar = {};
 
-  printerror = "LOADING";
-  iconerror = "happy-outline";
-  isFetching = true;
+  printerrorremoteshells: string = "LOADING";
+  iconerrorremoteshells: string = "happy-outline";
+  isFetchingremoteshells: boolean = true;
+
+  printerrorremotes: string = "LOADING";
+  iconerrorremotes: string = "happy-outline";
+  isFetchingRemotes: boolean = true;
   public compitableremotes: Array<Remote> = [];
+  public compitableremoteshells: Array<RemoteShell> = []
   public carnotes: Array<string> = [];
 
   constructor(
     private http: HttpClient,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private navParamService: NavparamService
+    private navParamService: NavparamService,
+    private modelService: ModalserviceService,
+    public databaseService: DatabaseServiceService
   ) {
+
+    // getting selected car details from URL
     this.activatedRoute.paramMap.subscribe((paramMap) => {
       if (!paramMap.has("selectedBrand" && "selectedModel" && "selectedYear")) {
         // redirect
@@ -75,28 +63,9 @@ export class ResultPage implements OnInit {
     });
   }
 
-  onSubmit(form: NgForm) {
-    const newCarNote: CarNote = {
-      brand: this.selectedCarDetails.carbrand,
-      model: this.selectedCarDetails.model,
-      selectedyear: this.selectedCarDetails.selectedyear,
-      carnotesDescription: form.value.carnote,
-    };
-
-    this.carnotes.push(newCarNote.carnotesDescription);
-    this.navParamService.setCarNote(this.selectedCarDetails.selectedyear);
-
-    this.http
-      .post(
-        "https://tapsystock-a6450-default-rtdb.firebaseio.com/carprogrammingdetailsV2.json",
-        { ...newCarNote, key: null }
-      )
-      .subscribe((resData) => {
-        // console.log(resData);
-      });
-  }
-
   ngOnInit() {
+
+    // getting car photo from database
     this.http
       .get<{ [key: string]: Car }>(
         "https://tapsystock-a6450-default-rtdb.firebaseio.com/car-model.json"
@@ -115,24 +84,9 @@ export class ResultPage implements OnInit {
       });
 
     // getting car notes
-    this.http
-      .get<{ [key: string]: CarNote }>(
-        "https://tapsystock-a6450-default-rtdb.firebaseio.com/carprogrammingdetailsV2.json"
-      )
-      .subscribe((resData) => {
-        for (const key in resData) {
-          if (resData.hasOwnProperty(key)) {
-            if (
-              resData[key].brand == this.selectedCarDetails.carbrand &&
-              resData[key].model == this.selectedCarDetails.model &&
-              resData[key].selectedyear == this.selectedCarDetails.selectedyear
-            ) {
-              this.carnotes.push(resData[key].carnotesDescription);
-            }
-          }
-        }
-      });
+    this.databaseService.gettingcarnotesforselectedCar(this.selectedCarDetails);
 
+      // getting remotes
     this.http
       .get<{ [key: string]: Remote }>(
         "https://tapsystock-a6450-default-rtdb.firebaseio.com/remotes.json"
@@ -171,48 +125,74 @@ export class ResultPage implements OnInit {
             this.compitableremotes.sort((a, b) =>
               a.boxnumber > b.boxnumber ? 1 : -1
             );
-            this.isFetching = false;
+            this.isFetchingRemotes = false;
           }
         }
 
         if (this.compitableremotes.length == 0) {
-          this.printerror = "No Remotes Found";
-          this.iconerror = "sad-outline";
+          this.printerrorremotes = "No Remote Found";
+          this.iconerrorremotes = "sad-outline";
+        }
+      });
+
+
+      // getting remote shells
+      this.http
+      .get<{ [key: string]: RemoteShell }>(
+        "https://tapsystock-a6450-default-rtdb.firebaseio.com/remote-shells.json"
+      )
+      .subscribe((resData) => {
+        for (const key in resData) {
+          let compatiblecars: any = resData[key].compitablecars;
+
+          if (
+            compatiblecars !== undefined &&
+            compatiblecars.find(
+              (i) =>
+                i.brand === this.selectedCarDetails.carbrand &&
+                i.model === this.selectedCarDetails.model &&
+                this.selectedCarDetails.selectedyear >= i.startyear &&
+                this.selectedCarDetails.selectedyear <= i.endyear
+            )
+          ) {
+            this.compitableremoteshells.push({
+              key,
+              tapsycode: resData[key].tapsycode,
+              boxnumber: resData[key].boxnumber,
+              blade: resData[key].blade,
+              buttons: resData[key].buttons,
+              image: resData[key].image,
+              qtyAvailable: resData[key].qtyAvailable,
+              notes: resData[key].notes
+
+            });
+            this.compitableremoteshells.sort((a, b) =>
+              a.boxnumber > b.boxnumber ? 1 : -1
+            );
+            this.isFetchingremoteshells = false;
+          }
+        }
+
+        if (this.compitableremoteshells.length == 0) {
+          this.printerrorremoteshells = "No Shell Found";
+          this.iconerrorremoteshells = "sad-outline";
         }
       });
   }
 
-  onClickLowStock(lowstockremote) {
-    const selectedremote = this.compitableremotes.find(
-      (i) => i.tapsycode === lowstockremote
-    );
-    this.navParamService.setRemoteKey(selectedremote.key);
+  // calling add car note modal
+  async onClickAddNotes() {
+    await this.modelService.onClickaddNotes(this.selectedCarDetails);
+  }
 
-    selectedremote.remoteinStock = false;
+  // calling remotedetail View Modal
+  async onClickItemModal(selectedtapsycode: string) {
 
-    const lowStockItem: LowStockItem = {
-      boxno: selectedremote.boxnumber,
-      tapsycode: selectedremote.tapsycode,
-      itemtype: selectedremote.remotetype,
-      image: selectedremote.image,
-    };
+    const selectedremote = this.compitableremotes.find(remote => remote.tapsycode === selectedtapsycode);
+    if (selectedremote.notes == undefined) {
+      selectedremote.notes = [];
+    }
 
-    this.http
-      .put(
-        `https://tapsystock-a6450-default-rtdb.firebaseio.com/remotes/${selectedremote.key}.json`,
-        { ...selectedremote, remoteinStock: false, key: null }
-      )
-      .subscribe((resData) => {
-        // console.log(resData);
-      });
-
-    this.http
-      .post(
-        "https://tapsystock-a6450-default-rtdb.firebaseio.com/lowstockitemsV2.json",
-        { ...lowStockItem, key: null }
-      )
-      .subscribe((resData) => {
-        // console.log(resData);
-      });
+    await this.modelService.onClickViewItem(selectedremote);
   }
 }

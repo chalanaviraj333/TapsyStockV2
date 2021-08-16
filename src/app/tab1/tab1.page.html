@@ -1,9 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
     <ion-title>Car Brands</ion-title>
-    <ion-buttons slot="end">
-      <ion-menu-button menu="main-menu"></ion-menu-button>
-    </ion-buttons>
   </ion-toolbar>
   <ion-toolbar color="primary">
     <ion-searchbar #search debounce="500" (ionChange)="_ionChange($event)" placeholder="Enter Brand" showCancelButton="never" animated></ion-searchbar>
@@ -11,27 +8,33 @@
 
 </ion-header>
 
-<ion-content [fullscreen]="true" [scrollEvents]="true" (ionScrollStart)="logScrollStart()">
+<ion-content [scrollEvents]="true" (ionScrollStart)="logScrollStart()">
 
-  <ion-card *ngFor="let carbrand of searchedItem" (click)="onClick(carbrandname = carbrand.name)" class="ion-activatable ripple-parent">
-      <ion-grid>
-        <ion-row class="ion-align-items-center">
-          <ion-col size-xs="9" size-sm="6">
-            <h2 class="alphabhetContent">
-              {{carbrand.name.charAt(0)}}
-            </h2>
-            <h2 class="carbrandName">
-              {{carbrand.name.slice(1)}}
-            </h2>
-          </ion-col>
-          <ion-col size-xs="3">
-            <img src="{{carbrand.icon}}" width="50" height="50">
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    <ion-ripple-effect type="unbounded"></ion-ripple-effect>
-
-  </ion-card>
+  <ion-list>
+    <ion-item-sliding *ngFor="let carbrand of searchedItem">
+      <ion-item-options side="end">
+        <ion-item-option id="allprodsslideID" class="ion-text-center" (click)="onClickViewBrandProducts(carbrand.name)">All <br> Products</ion-item-option>
+      </ion-item-options>
+      <ion-item id="carbrandItemID" class="ion-no-padding ion-activatable ripple-parent" (click)="onClick(carbrand.name)">
+        <ion-grid>
+          <ion-row class="ion-align-items-center">
+            <ion-col size-xs="9" size-md="8" size-lg="8">
+              <ion-label color="danger" id="alphabhetContent">
+                {{carbrand.name.charAt(0)}}
+              </ion-label>
+              <ion-label color="dark" id="carbrandName">
+                {{carbrand.name.slice(1)}}
+              </ion-label>
+            </ion-col>
+            <ion-col size-xs="3" size-md="2" offset-md="1" size-lg="2" offset-lg="1" class="ion-text-end">
+              <img id="brandImageID" src="{{carbrand.icon}}" width="50" height="50">
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+        </ion-item>
+      </ion-item-sliding>
+  </ion-list>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="ScrollToTop()" *ngIf="hideButton">

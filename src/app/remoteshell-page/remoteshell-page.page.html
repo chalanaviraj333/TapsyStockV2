@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
-    <ion-title>All Remote Shells</ion-title>
+    <ion-title class="primarytext">All Remote Shells</ion-title>
     <ion-buttons slot="end">
       <ion-menu-button menu="main-menu"></ion-menu-button>
     </ion-buttons>
@@ -12,28 +12,32 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" [scrollEvents]="true" (ionScrollStart)="logScrollStart()">
+  <ion-grid>
+    <ion-row>
+      <ion-col size-md="6" offset-md="3" size-lg="6" offset-lg="3">
   <ion-card *ngFor="let remoteshell of searchedItem let i = index">
-    <ion-grid>
       <ion-card-content>
         <ion-row no-padding>
-          <ion-col size="6" text-center>
-            <ion-card-subtitle color={{remoteshell.remotetype}} id="boxNumber">BOX: {{remoteshell.boxnumber}}</ion-card-subtitle>
-            <ion-card-subtitle color="medium">BLADE:{{remoteshell.blade}}</ion-card-subtitle>
-            <ion-card-subtitle color="medium">Buttons:{{remoteshell.buttons}}</ion-card-subtitle>
-            <ion-card-subtitle color="medium">Notes:{{remoteshell.notes}}</ion-card-subtitle>
-            <ion-button size="small" shape="round" (click)="_lowStock(i, lowStockRemoteShellTapsyCode = remoteshell.tapsycode)" disabled={{!remoteshell.inStock}}>LOW STOCK</ion-button>
+          <ion-col size-xs="6" size-md="6" size-lg="6">
+            <ion-card-subtitle class="primarytext" color={{remoteshell.remotetype}} id="boxNumber">BOX: {{remoteshell.boxnumber}}</ion-card-subtitle>
+            <ion-card-subtitle class="primarytext" color="medium">BLADE:{{remoteshell.blade}}</ion-card-subtitle>
+            <ion-card-subtitle class="primarytext" color="medium">Buttons:{{remoteshell.buttons}}</ion-card-subtitle>
+            <ion-card-subtitle class="primarytext" color="dark">Tapsycode:{{remoteshell.tapsycode}}</ion-card-subtitle>
+            <ion-button class="primarytext" size="small" shape="round" (click)="_lowStock(i, lowStockRemoteShellTapsyCode = remoteshell.tapsycode)" disabled={{!remoteshell.inStock}}>LOW STOCK</ion-button>
           </ion-col>
-          <ion-col size="6">
+          <ion-col size-xs="3" size-md="4" offset-md="1" size-lg="4" offset-lg="1">
             <img src="{{remoteshell.image}}" width="120" height="120" />
-            <ion-chip *ngIf="!remoteshell.inStock">
+            <ion-chip *ngIf="!remoteshell.inStock" class="primarytext" color="danger">
               <ion-label color="danger">Low Stock</ion-label>
             </ion-chip>
           </ion-col>
         </ion-row>
       </ion-card-content>
-    </ion-grid>
     <ion-ripple-effect type="unbounded"></ion-ripple-effect>
   </ion-card>
+  </ion-col>
+  </ion-row>
+  </ion-grid>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="ScrollToTop()" *ngIf="hideButton">

@@ -20,6 +20,14 @@ const routes: Routes = [
         loadChildren: () => import('../remoteshell-page/remoteshell-page.module').then( m => m.RemoteshellPagePageModule)
       },
       {
+        path: 'more',
+        loadChildren: () => import('../more/more.module').then( m => m.MorePageModule)
+      },
+      {
+        path: 'lowstockpage',
+        loadChildren: () => import('../lowstock-page/lowstock-page.module').then( m => m.LowstockPagePageModule)
+      },
+      {
         path: 'tab1/model/:brandId',
         loadChildren: () => import('../model/model.module').then( m => m.ModelPageModule)
       },

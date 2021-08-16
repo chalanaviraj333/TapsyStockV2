@@ -1,13 +1,35 @@
-ion-card {
-    box-shadow: 1px 1px 5px 0px rgba(84, 6, 156, 0.315);
-    border-radius: 15px;
-}
-
-#toolBarSearch {
-    height: 40px;
-}
 
 #errorContent {
     text-align: center;
     margin-top: 5px;
+}
+
+
+#yearsRangeID {
+    font-family: futura-pt,sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 12px;
+    margin-left: 25px;
+
+}
+
+#carmodelID {
+    font-family: futura-pt,sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 30px;
+    margin-left: 20px;
+}
+
+#allprodsslideID {
+    font-family: futura-pt, sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 12px;
+}
+
+
+#modelImageID {
+    border-radius: 10px;
 }

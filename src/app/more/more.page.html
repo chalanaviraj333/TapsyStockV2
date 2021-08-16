@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class="primarytext">More</ion-title>
+  </ion-toolbar>
+  <ion-toolbar color="primary">
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content>
+  <ion-item id="usernameInputID" class="ion-no-padding">
+    <ion-input [(ngModel)]="username" placeholder="Username"></ion-input>
+    <ion-button fill="outline" color="success" (click)="onClickUsernameSave()" [disabled]="username == ''">SAVE</ion-button>
+  </ion-item>
+
+</ion-content>

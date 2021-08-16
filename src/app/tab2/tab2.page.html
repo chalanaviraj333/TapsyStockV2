@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
-    <ion-title>All Remotes</ion-title>
+    <ion-title class="primarytext">All Remotes</ion-title>
     <ion-buttons slot="end">
       <ion-menu-button menu="main-menu"></ion-menu-button>
     </ion-buttons>
@@ -12,29 +12,34 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" [scrollEvents]="true" (ionScrollStart)="logScrollStart()">
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size-md="6" offset-md="3" size-lg="6" offset-lg="3">
   <ion-card *ngFor="let remote of searchedItem" (click)="onClick(x = remote.tapsycode)"
     class="ion-activatable ripple-parent">
-    <ion-grid>
       <ion-card-content>
         <ion-row class="ion-no-padding">
-          <ion-col size-xs="6">
-            <ion-card-subtitle color="primary" id="boxNumber">BOX: {{remote.boxnumber}}</ion-card-subtitle>
-            <ion-card-subtitle color="danger">{{remote.frequency}}</ion-card-subtitle>
-            <ion-card-subtitle color="dark">BLADE:{{remote.inbuildblade}}</ion-card-subtitle>
-            <ion-card-subtitle color="medium">{{remote.inbuildchip}}</ion-card-subtitle>
-            <ion-card-subtitle color="medium">CODE:{{remote.tapsycode}}</ion-card-subtitle>
+          <ion-col size-xs="6" size-md="6" size-lg="6">
+            <ion-card-subtitle color="primary" id="boxNumber" class="primarytext"s>BOX: {{remote.boxnumber}}</ion-card-subtitle>
+            <ion-card-subtitle color="danger" class="primarytext">{{remote.frequency}}</ion-card-subtitle>
+            <ion-card-subtitle color="dark" class="primarytext">BLADE:{{remote.inbuildblade}}</ion-card-subtitle>
+            <ion-card-subtitle color="medium" class="primarytext">{{remote.inbuildchip}}</ion-card-subtitle>
+            <ion-card-subtitle color="dark" class="primarytext">CODE:{{remote.tapsycode}}</ion-card-subtitle>
           </ion-col>
-          <ion-col size="6">
+          <ion-col size-xs="3" size-md="4" offset-md="1" size-lg="4" offset-lg="1">
             <img src="{{remote.image}}" width="120" height="120" />
-            <ion-chip color="danger" *ngIf="!remote.remoteinStock">
+            <ion-chip class="primarytext" color="danger" *ngIf="!remote.remoteinStock">
               <ion-label>LOW STOCK</ion-label>
             </ion-chip>
           </ion-col>
         </ion-row>
       </ion-card-content>
-    </ion-grid>
     <ion-ripple-effect type="unbounded"></ion-ripple-effect>
   </ion-card>
+  </ion-col>
+  </ion-row>
+  </ion-grid>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="ScrollToTop()" *ngIf="hideButton">

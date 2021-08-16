@@ -1,19 +1,16 @@
 <ion-header translucent>
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/"></ion-back-button>
+      <ion-back-button text="Brands" defaultHref="/"></ion-back-button>
     </ion-buttons>
-    <ion-title>{{selectedBrand}}</ion-title>
-    <ion-buttons slot="end">
-      <ion-menu-button menu="main-menu"></ion-menu-button>
-    </ion-buttons>
+    <ion-title class="primarytext">{{selectedBrand}}</ion-title>
   </ion-toolbar>
-<ion-toolbar id="toolBarSearch" color="primary">
+<ion-toolbar color="primary">
   <ion-searchbar #search debounce="500" (ionChange)="_ionChange($event)" placeholder="Enter Models" showCancelButton="never" animated></ion-searchbar>
 </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" [scrollEvents]="true" (ionScrollStart)="logScrollStart()">
+<ion-content [scrollEvents]="true" (ionScrollStart)="logScrollStart()">
 
   <div id="errorContent">
     <ion-chip *ngIf="isFetching" color="danger">
@@ -21,25 +18,64 @@
       <ion-label>{{printerror}}</ion-label>
     </ion-chip>
   </div>
+
+  <ion-list>
+    <ion-item-sliding *ngFor="let model of searchedItem">
+      <ion-item-options side="end">
+        <ion-item-option id="allprodsslideID" class="ion-text-center">All <br> Products</ion-item-option>
+      </ion-item-options>
+      <ion-item (click)="onClick(x = model.model, startyear = model.startyear, endyear = model.endyear)" id="carbrandItemID" class="ion-no-padding ion-activatable ripple-parent">
+        <ion-grid>
+          <ion-row no-padding>
+            <ion-col size="7">
+              <ion-label class="ion-texrt-wrap">
+                <ion-label color="dark" id="carmodelID">
+                  {{model.model}}
+                </ion-label>
+                <ion-note color="danger" id="yearsRangeID">
+                  {{model.startyear}}-{{model.endyear}}
+                </ion-note>
+              </ion-label>
+            </ion-col>
+            <ion-col size="5" class="ion-text-end">
+              <img id="modelImageID" src="{{model.icon}}" size="small" height="70">
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+        </ion-item>
+      </ion-item-sliding>
+  </ion-list>
+
+  <!-- <ion-list>
+    <ion-item-sliding *ngFor="let model of searchedItem"
+    (click)="onClick(x = model.model, startyear = model.startyear, endyear = model.endyear)">
+      <ion-item-options side="end">
+        <ion-item-option id="allprodsslideID" class="ion-text-center">All <br> Products</ion-item-option>
+      </ion-item-options>
+      <ion-item id="carbrandItemID" class="ion-no-padding ion-activatable ripple-parent">
+        <ion-grid>
+          <ion-row no-padding>
+            <ion-col size="7">
+              <ion-label class="ion-texrt-wrap">
+                <ion-label color="dark" id="carmodelID">
+                  {{model.model}}
+                </ion-label>
+                <ion-note color="danger" id="yearsRangeID">
+                  {{model.startyear}}-{{model.endyear}}
+                </ion-note>
+              </ion-label>
+            </ion-col>
+            <ion-col size="5" class="ion-text-end">
+              <img id="modelImageID" src="{{model.icon}}" size="small" height="70">
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+        </ion-item>
+      </ion-item-sliding>
+  </ion-list> -->
   
-  <ion-card *ngFor="let model of searchedItem"
-    (click)="onClick(x = model.model, startyear = model.startyear, endyear = model.endyear)"
-    class="ion-activatable ripple-parent">
-    <ion-card-content>
-
-      <ion-row no-padding>
-        <ion-col size="7">
-          <ion-card-subtitle color="danger">{{model.startyear}}-{{model.endyear}}</ion-card-subtitle>
-          <ion-card-title>{{model.model}}</ion-card-title>
-        </ion-col>
-        <ion-col size="5">
-          <img src="{{model.icon}}">
-        </ion-col>
-      </ion-row>
-    </ion-card-content>
-    <ion-ripple-effect></ion-ripple-effect>
-  </ion-card>
-
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="ScrollToTop()" *ngIf="hideButton">
       <ion-icon name="arrow-up-circle"></ion-icon>

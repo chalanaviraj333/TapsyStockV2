@@ -2,24 +2,47 @@
 ion-card {
     box-shadow: 1px 1px 5px 0px rgba(84, 6, 156, 0.315);
     border-radius: 10px;
-    padding: 10px;
 }
 
-h2 {
+
+#alphabhetContent{
+    font-family: futura-pt, sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    text-align: left;
+    float: left;
+    font-size: 20px;
+    margin-left: 10px;
+    // color: #ff4961;
+}
+
+#carbrandName {
+    font-family: futura-pt, sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    text-align: left;
+    float: left;
+    font-size: 20px;
+    // color: #2C393F;
+}
+
+ion-title {
     font-family: futura-pt,sans-serif;
 font-weight: 700;
 font-style: normal;
 }
 
-
-.alphabhetContent{
-    text-align: left;
-    float: left;
-    color: #ff4961;
+#carbrandCardID {
+    margin: 12px;
 }
 
-.carbrandName {
-    text-align: left;
-    float: left;
-    color: #2C393F;
+#allprodsslideID {
+    font-family: futura-pt, sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 12px;
+}
+
+#brandImageID {
+    border-radius: 10px;
 }
