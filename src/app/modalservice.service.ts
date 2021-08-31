@@ -2,8 +2,11 @@ import { Injectable } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { AddnotesPage } from './addnotes/addnotes.page';
 import { FilterPage } from './filter/filter.page';
-import { ProductsbybrandPage } from './productsbybrand/productsbybrand.page';
+import { FiltertabthreePagePage } from './filtertabthree-page/filtertabthree-page.page';
+import { FiltertabtwopagePage } from './filtertabtwopage/filtertabtwopage.page';
+import { LowStockModalPage } from './low-stock-modal/low-stock-modal.page';
 import { Remote } from './remote';
+import { RemoteShell } from './remote-shell';
 import { RemotedetailsmodalPage } from './remotedetailsmodal/remotedetailsmodal.page';
 import { SelectedCar } from './selected-car';
 
@@ -39,21 +42,6 @@ export class ModalserviceService {
     return await modal.present();
   }
 
-
-  // on click view brand products tab 1
-  async onClickViewBrandProducts(selectedbrand: string) {
-    const modal = await this.modalController.create({
-      component: ProductsbybrandPage,
-      componentProps: {
-        "selectedBrand": selectedbrand
-      },
-      cssClass: 'view-brand-products-class',
-      swipeToClose: true,
-    });
-    return await modal.present();
-
-  }
-
   async onClickFilter() {
     const modal = await this.modalController.create({
       component: FilterPage,
@@ -63,4 +51,48 @@ export class ModalserviceService {
     return await modal.present();
 
   }
+
+  async onClickFilterTabTwo() {
+    const modal = await this.modalController.create({
+      component: FiltertabtwopagePage,
+      cssClass: 'filtermodal-page-class',
+      swipeToClose: true,
+    });
+    return await modal.present();
+
+  }
+
+  async onClickFilterTabThree() {
+    const modal = await this.modalController.create({
+      component: FiltertabthreePagePage,
+      cssClass: 'filtermodal-page-class',
+      swipeToClose: true,
+    });
+    return await modal.present();
+
+  }
+
+  async onClickViewItemRemoteShell(selectedRemote: RemoteShell) {
+    const modal = await this.modalController.create({
+      component: RemotedetailsmodalPage,
+      componentProps: {
+        "selectedRemote": selectedRemote
+      },
+      cssClass: 'view-Remote-Details-class',
+      swipeToClose: true,
+    });
+    return await modal.present();
+  }
+
+  async onCLickLowStockItmes() {
+    const modal = await this.modalController.create({
+      component: LowStockModalPage,
+      cssClass: 'low-stock-page-class',
+      swipeToClose: true,
+    });
+    return await modal.present();
+
+  }
+
+
 }

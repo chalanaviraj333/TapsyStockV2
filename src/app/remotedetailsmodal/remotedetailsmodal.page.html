@@ -11,121 +11,148 @@
         <img id="remoteImageID" src="{{selectedRemote.image}}" height="150" />
       </ion-col>
       <ion-col size="7">
-        <!-- box number -->
-        <ion-label class="ion-text-wrap">
-          <ion-label color="danger" class="saveTag">Box </ion-label>
-          <ion-note color="dark" class="ion-text-nowrap otherdetailsClass"
-            >{{selectedRemote.boxnumber}}</ion-note
-          >
-        </ion-label>
-        <br />
+        <ion-grid>
+          <ion-row>
+            <ion-col size="12" class="ion-no-padding">
+              <ion-label class="ion-text-wrap">
+                <ion-label color="danger" class="saveTag">Box </ion-label>
+                <ion-note color="dark" class="ion-text-nowrap otherdetailsClass"
+                  >{{selectedRemote.boxnumber}}</ion-note
+                >
+              </ion-label>
+            </ion-col>
+            <ion-col size="12" class="ion-no-padding">
+              <ion-label class="ion-text-wrap">
+                <ion-label color="danger" class="saveTag">QTY </ion-label>
+                <ion-note color="dark" class="ion-text-nowrap otherdetailsClass"
+                  >{{selectedRemote.qtyavailable}}</ion-note
+                >
+              </ion-label>
+            </ion-col>
+            <ion-col size="12" class="ion-no-padding">
+              <ion-label class="ion-text-wrap">
+                <ion-label color="danger" class="saveTag"
+                  >Tapsy Code
+                </ion-label>
+                <ion-note color="dark" class="ion-text-wrap otherdetailsClass"
+                  >{{selectedRemote.tapsycode}}</ion-note
+                >
+              </ion-label>
+            </ion-col>
+            <ion-col
+              size="12"
+              class="ion-no-padding"
+              *ngIf="selectedRemote.frequency != null"
+            >
+              <ion-label class="ion-text-wrap">
+                <ion-label color="danger" class="saveTag">Frequency</ion-label>
+                <ion-note color="dark" class="ion-text-wrap otherdetailsClass"
+                  >{{selectedRemote.frequency}}</ion-note
+                >
+              </ion-label>
+            </ion-col>
+            <ion-col
+              size="12"
+              class="ion-no-padding"
+              *ngIf="selectedRemote.frequency != null"
+            >
+              <ion-label class="ion-text-wrap">
+                <ion-label color="danger" class="saveTag">Type</ion-label>
+                <ion-note color="dark" class="ion-text-wrap otherdetailsClass"
+                  >{{selectedRemote.remotetype}}</ion-note
+                >
+              </ion-label>
+            </ion-col>
+            <ion-col
+              size="12"
+              class="ion-no-padding"
+              *ngIf="selectedRemote.inbuildblade != null"
+            >
+              <ion-label class="ion-text-wrap">
+                <ion-label color="danger" class="saveTag">Blade</ion-label>
+                <ion-note color="dark" class="ion-text-wrap otherdetailsClass"
+                  >{{selectedRemote.inbuildblade}}</ion-note
+                >
+              </ion-label>
+            </ion-col>
 
-        <!-- available -->
-        <ion-label class="ion-text-wrap">
-          <ion-label color="danger" class="saveTag">QTY </ion-label>
-          <ion-note color="dark" class="ion-text-nowrap otherdetailsClass"
-            >{{selectedRemote.qtyavailable}}</ion-note
-          >
-        </ion-label>
-        <br />
-
-        <!-- tapsy code -->
-        <ion-label class="ion-text-wrap">
-          <ion-label color="danger" class="saveTag">Tapsy Code </ion-label>
-          <ion-note color="dark" class="ion-text-wrap otherdetailsClass"
-            >{{selectedRemote.tapsycode}}</ion-note
-          >
-        </ion-label>
-        <br />
-
-        <!-- frequncy -->
-        <ion-label class="ion-text-wrap" *ngIf="selectedRemote.frequency != null">
-          <ion-label color="danger" class="saveTag">Frequency</ion-label>
-          <ion-note color="dark" class="ion-text-wrap otherdetailsClass"
-            >{{selectedRemote.frequency}}</ion-note
-          >
-        </ion-label>
-        <br />
-
-        <!-- remote type -->
-        <ion-label class="ion-text-wrap" *ngIf="selectedRemote.frequency != null">
-          <ion-label color="danger" class="saveTag">Type</ion-label>
-          <ion-note color="dark" class="ion-text-wrap otherdetailsClass"
-            >{{selectedRemote.remotetype}}</ion-note
-          >
-        </ion-label>
-        <br />
-
-        <!-- blade -->
-        <ion-label class="ion-text-wrap" *ngIf="selectedRemote.inbuildblade != null">
-          <ion-label color="danger" class="saveTag">Blade</ion-label>
-          <ion-note color="dark" class="ion-text-wrap otherdetailsClass"
-            >{{selectedRemote.inbuildblade}}</ion-note
-          >
-        </ion-label>
-        <br />
-        <!-- chip -->
-
-        <ion-label class="ion-text-wrap" *ngIf="selectedRemote.inbuildchip != null">
-          <ion-label color="danger" class="saveTag">Chip</ion-label>
-          <ion-note color="dark" class="ion-text-wrap otherdetailsClass"
-            >{{selectedRemote.inbuildchip}}</ion-note
-          >
-        </ion-label>
-        <br />
-        <!-- buttons -->
-        <ion-label class="ion-text-wrap" *ngIf="selectedRemote.buttons != null">
-          <ion-label color="danger" class="saveTag">Buttons</ion-label>
-          <ion-note color="dark" class="ion-text-wrap otherdetailsClass"
-            >{{selectedRemote.buttons}}</ion-note
-          >
-        </ion-label>
-        <br />
-
-        <!-- battery -->
-        <ion-label class="ion-text-wrap" *ngIf="selectedRemote.battery != null">
-          <ion-label color="danger" class="saveTag">Battery</ion-label>
-          <ion-note color="dark" class="ion-text-wrap otherdetailsClass"
-            >{{selectedRemote.battery}}</ion-note
-          >
-        </ion-label>
-
-        <br />
+            <ion-col
+              size="12"
+              class="ion-no-padding"
+              *ngIf="selectedRemote.inbuildchip != null"
+            >
+              <ion-label class="ion-text-wrap">
+                <ion-label color="danger" class="saveTag">Chip</ion-label>
+                <ion-note color="dark" class="ion-text-wrap otherdetailsClass"
+                  >{{selectedRemote.inbuildchip}}</ion-note
+                >
+              </ion-label>
+            </ion-col>
+            <ion-col
+              size="12"
+              class="ion-no-padding"
+              *ngIf="selectedRemote.buttons != null"
+            >
+              <ion-label class="ion-text-wrap">
+                <ion-label color="danger" class="saveTag">Buttons</ion-label>
+                <ion-note color="dark" class="ion-text-wrap otherdetailsClass"
+                  >{{selectedRemote.buttons}}</ion-note
+                >
+              </ion-label>
+            </ion-col>
+            <ion-col
+              size="12"
+              class="ion-no-padding"
+              *ngIf="selectedRemote.battery != null"
+            >
+              <ion-label class="ion-text-wrap">
+                <ion-label color="danger" class="saveTag">Battery</ion-label>
+                <ion-note color="dark" class="ion-text-wrap otherdetailsClass"
+                  >{{selectedRemote.battery}}</ion-note
+                >
+              </ion-label>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
       </ion-col>
     </ion-row>
 
     <ion-row>
       <ion-col size="12">
         <!-- compatiable with -->
-          <ion-list>
-            <ion-list-header class="saveTag">
-              Compatible With
-            </ion-list-header>
-            <ion-item id="compatiblecarItemID" *ngFor="let car of selectedRemote.compitablecars">
-              <ion-label id="carmodelcompatibleID" class="otherdetailsClass">{{car.model}} {{car.startyear}} - {{car.endyear}}</ion-label>
-            </ion-item>
-          </ion-list>
+        <ion-list>
+          <ion-list-header class="saveTag"> Compatible With </ion-list-header>
+          <ion-item
+            id="compatiblecarItemID"
+            *ngFor="let car of selectedRemote.compitablecars"
+          >
+            <ion-label id="carmodelcompatibleID" class="otherdetailsClass"
+              >{{car.model}} {{car.startyear}} - {{car.endyear}}</ion-label
+            >
+          </ion-item>
+        </ion-list>
       </ion-col>
     </ion-row>
 
     <ion-row>
       <ion-col size="12" id="compatiblecolID">
         <!-- compatiable with -->
-          <ion-list>
-            <ion-list-header class="saveTag">
-              Remote Notes
-            </ion-list-header>
-            <ion-item *ngFor="let note of selectedRemote.notes" lines="none">
-              <ion-label class="ion-text-wrap otherdetailsClass">{{note.username}} - {{note.notebodyText}}</ion-label>
-            </ion-item>
-          </ion-list>
+        <ion-list>
+          <ion-list-header class="saveTag"> Remote Notes </ion-list-header>
+          <ion-item *ngFor="let note of selectedRemote.notes" lines="none">
+            <ion-label class="ion-text-wrap otherdetailsClass"
+              >{{note.username}} - {{note.notebodyText}}</ion-label
+            >
+          </ion-item>
+        </ion-list>
       </ion-col>
     </ion-row>
     <form #f="ngForm" (ngSubmit)="onSubmit(f)">
       <ion-row>
         <ion-col size-xs="12">
           <ion-item lines="none">
-            <ion-textarea rows="5"
+            <ion-textarea
+              rows="5"
               ngModel
               name="remotenote"
               placeholder="Enter any notes here..."

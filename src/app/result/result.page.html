@@ -34,13 +34,6 @@
             >Special Notes</ion-list-header
           >
           <ion-item *ngFor="let note of databaseService.carNotesforCar" lines="none">
-            <!-- <ion-avatar slot="start">
-              <ion-icon
-                color="danger"
-                size="large"
-                name="alert-circle-outline"
-              ></ion-icon>
-            </ion-avatar> -->
             <ion-label class="ion-text-wrap">
               <ion-label color="dark" id="usernameID">{{note.userename}} - {{note.date.toISOString().split('T')[0]}}</ion-label>
               <ion-label class="carnotes ion-text-wrap"> {{note.carnotesDescription}} </ion-label>
@@ -96,7 +89,7 @@
               <ion-row>
                 <ion-col size="6" class="ion-text-start">
                   <ion-label class="ion-text-nowrap">
-                    <ion-label color="medium" class="saveTag">AVAl </ion-label>
+                    <ion-label color="medium" class="saveTag">QTY </ion-label>
                     <ion-note id="boxnumberID"
                       color="dark"
                       class="ion-text-nowrap"
@@ -238,7 +231,7 @@
                     <ion-note id="boxnumberID"
                       color="dark"
                       class="ion-text-nowrap"
-                      >{{remoteshell.qtyAvailable}}</ion-note
+                      >{{remoteshell.qtyavailable}}</ion-note
                     >
                   </ion-label>
                 </ion-col>
@@ -257,7 +250,7 @@
                 </ion-col>
               </ion-row>
               <!-- blade -->
-              <ion-row *ngIf="remoteshell.blade != null">
+              <ion-row *ngIf="remoteshell.inbuildblade != null">
                 <ion-col
                   size-xs="12"
                   size-sm="4"
@@ -270,7 +263,7 @@
                     <ion-note
                       color="dark"
                       class="ion-text-nowrap otherdetailsClass"
-                      >{{remoteshell.blade}}</ion-note
+                      >{{remoteshell.inbuildblade}}</ion-note
                     >
                   </ion-label>
                 </ion-col>

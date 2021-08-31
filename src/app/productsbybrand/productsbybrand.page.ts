@@ -22,11 +22,15 @@ export class ProductsbybrandPage implements OnInit {
   }
 
   _onClickDismiss() {
-    this.modalController.dismiss();
+    this.databaseService.closebrandedProductsPage();
   }
 
   onClickFilter() {
     this.modalService.onClickFilter();
+  }
+
+  onClickItemModal(selectedProduct: any) {
+    this.modalService.onClickViewItem(selectedProduct);
   }
 
 }

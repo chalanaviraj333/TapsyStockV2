@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { IonContent, IonSearchbar } from "@ionic/angular";
-import { HttpClient } from "@angular/common/http";
+import { DatabaseServiceTabThreeService } from "../database-service-tab-three.service";
+import { ModalserviceService } from "../modalservice.service";
 import { RemoteShell } from "../remote-shell";
-import { LowStockItem } from "../low-stock-item";
 
 @Component({
   selector: "app-remoteshell-page",
@@ -13,96 +13,50 @@ export class RemoteshellPagePage implements OnInit {
   @ViewChild("search", { static: false }) search: IonSearchbar;
   @ViewChild(IonContent, { static: false }) content: IonContent;
 
-  private keyShells: Array<RemoteShell> = [];
-  public searchedItem: Array<RemoteShell> = [];
-
   public hideButton: boolean = false;
+  public data: any;
 
-  constructor(private http: HttpClient) {}
+  counter(i: number) {
+    return new Array(i);
+  }
+
+
+  constructor(public databaseTabThreeSerive: DatabaseServiceTabThreeService, private modelService: ModalserviceService) {}
 
   ngOnInit() {
-    this.http
-      .get<{ [key: string]: RemoteShell }>(
-        "https://tapsystock-a6450-default-rtdb.firebaseio.com/remote-shells.json"
-      )
-      .subscribe((resData) => {
-        for (const key in resData) {
-          if (resData.hasOwnProperty(key)) {
-            this.keyShells.push({
-              key,
-              tapsycode: resData[key].tapsycode,
-              boxnumber: resData[key].boxnumber,
-              remotetype: resData[key].remotetype,
-              compitablebrands: resData[key].compitablebrands,
-              image: resData[key].image,
-              blade: resData[key].blade,
-              buttons: resData[key].buttons,
-              notes: resData[key].notes,
-              inStock: resData[key].inStock,
-            });
-            this.keyShells.sort((a, b) => (a.boxnumber > b.boxnumber ? 1 : -1));
-          }
-        }
-      });
-
-    this.searchedItem = this.keyShells;
+    this.databaseTabThreeSerive.getAllRemoteShells();
   }
+
+  ionViewWillEnter() {
+    setTimeout(() => {
+      this.data = {
+        'heading': 'Normal text',
+        'para1': 'Lorem ipsum dolor sit amet, consectetur',
+        'para2': 'adipiscing elit.'
+      };
+    }, 1000);
+  }
+
+   // delete before publish
+   onCLickUpload() {
+    this.databaseTabThreeSerive.uploadclonetoDatabase();
+  }
+
+
+
+  // till here
 
   _ionChange(event) {
-    const val = event.target.value;
+    const entervalue = event.target.value;
 
-    this.searchedItem = this.keyShells;
+    this.databaseTabThreeSerive.performSearch(entervalue);
 
-    if (val && val.trim() != "") {
-      this.searchedItem = this.searchedItem.filter((currentKeyShell) => {
-        if (currentKeyShell.compitablebrands !== undefined) {
-          let searchWord =
-            currentKeyShell.tapsycode +
-            currentKeyShell.blade +
-            currentKeyShell.compitablebrands.toString();
-          return searchWord.toLowerCase().indexOf(val.toLowerCase()) > -1;
-        } else {
-          let searchWord = currentKeyShell.tapsycode + currentKeyShell.blade;
-          return searchWord.toLowerCase().indexOf(val.toLowerCase()) > -1;
-        }
-      });
-    }
   }
 
-  _lowStock(i, lowStockRemoteShellTapsyCode) {
-    const selectedlowstockitem = this.keyShells.find(
-      (i) => i.tapsycode === lowStockRemoteShellTapsyCode
-    );
+  async onClick(selectedRemote: RemoteShell) {
 
-    selectedlowstockitem.inStock = false;
-
-    const lowStockItem: LowStockItem = {
-      key: null,
-      boxno: selectedlowstockitem.boxnumber,
-      tapsycode: selectedlowstockitem.tapsycode,
-      itemtype: selectedlowstockitem.remotetype,
-      image: selectedlowstockitem.image,
-    };
-
-    this.http
-      .post(
-        "https://tapsystock-a6450-default-rtdb.firebaseio.com/lowstockitemsV2.json",
-        lowStockItem
-      )
-      .subscribe((resData) => {
-        // console.log(resData);
-      });
-
-    this.http
-      .put(
-        `https://tapsystock-a6450-default-rtdb.firebaseio.com/remote-shells/${selectedlowstockitem.key}.json`,
-        { ...selectedlowstockitem, remoteinStock: false, key: null }
-      )
-      .subscribe((resData) => {
-        // console.log(resData);
-      });
+    await this.modelService.onClickViewItemRemoteShell(selectedRemote);
   }
-
   logScrollStart() {
     setTimeout(() => {
       this.hideButton = true;
@@ -114,5 +68,9 @@ export class RemoteshellPagePage implements OnInit {
     setTimeout(() => {
       this.hideButton = false;
     }, 4000);
+  }
+
+  onClickFilter() {
+    this.modelService.onClickFilterTabThree();
   }
 }

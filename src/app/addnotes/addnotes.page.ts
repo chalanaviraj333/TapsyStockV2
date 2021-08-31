@@ -5,7 +5,7 @@ import { NgForm } from "@angular/forms";
 import { SelectedCar } from "../selected-car";
 import { DatabaseServiceService } from "../database-service.service";
 import { CarNote } from "../car-note";
-// import { Storage } from '@capacitor/storage';
+import { Storage } from '@capacitor/storage';
 
 @Component({
   selector: "app-addnotes",
@@ -23,13 +23,13 @@ export class AddnotesPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    // Storage.get({key: 'username'}).then(
-    //   storedData => {
-    //     if (!storedData || !storedData.value) {
-    //       return;
-    //     }
-    //     this.username = JSON.parse(storedData.value);
-    //   });
+    Storage.get({key: 'username'}).then(
+      storedData => {
+        if (!storedData || !storedData.value) {
+          return;
+        }
+        this.username = JSON.parse(storedData.value);
+      });
   }
 
   _onClickDismiss() {
@@ -47,5 +47,6 @@ export class AddnotesPage implements OnInit {
     };
 
     this.databaseService.addtonotes(newCarNote);
+    this.modalController.dismiss();
   }
 }

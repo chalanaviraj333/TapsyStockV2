@@ -3,11 +3,19 @@ import { Injectable } from "@angular/core";
 import { ModalController, ToastController } from "@ionic/angular";
 import { CarNote } from "./car-note";
 import { NavparamService } from "./navparam.service";
+// import { ModalserviceService } from "./modalservice.service";
 import { SelectedCar } from "./selected-car";
-// import { Storage } from '@capacitor/storage';
+import { Storage } from '@capacitor/storage';
 import { Remote } from "./remote";
 import { Carmodel } from "./carmodel";
 import { RemoteShell } from "./remote-shell";
+
+export interface selectedData {
+  selectedCategory: string;
+  selectedFrequncy: string;
+  selectedChip: string;
+  selectedBlade: string;
+}
 
 
 @Injectable({
@@ -18,17 +26,33 @@ export class DatabaseServiceService {
 
   public allremotes: Array<Remote> = [];
   public searchedCarModels: Array<Carmodel> = [];
-  public brandedProducts: Array<any> = [];
+  private brandedProducts: Array<any> = [];
+  public filteredBrandProducts: Array<any> = [];
+  public frequcnyList: Array<string> = [];
+  public chipList: Array<string> = [];
+  public bladeList: Array<string> = [];
+  
+  public selectedData: selectedData = {
+    selectedCategory: '',
+    selectedFrequncy: '',
+    selectedBlade: '',
+    selectedChip: ''
+  }
+
 
   constructor(
     private http: HttpClient,
     public toastController: ToastController,
-    private modalController: ModalController,
-    private navParamService: NavparamService
-  ) {}
+    private navParamService: NavparamService,
+    private modalController: ModalController
+  ) { }
 
   getBrandedProducts(selectedBrand: string) {
     this.brandedProducts = [];
+    this.filteredBrandProducts = [];
+    let duplicatefreqArray: Array<string> = [];
+    let duplicatechipArray: Array<string> = [];
+    let duplicatebladeArray: Array<string> = [];
     
     this.http
       .get<{ [key: string]: Remote }>(
@@ -42,6 +66,7 @@ export class DatabaseServiceService {
                 key,
                 tapsycode: resData[key].tapsycode,
                 boxnumber: resData[key].boxnumber,
+                qtyavailable: resData[key].qtyavailable,
                 inbuildchip: resData[key].inbuildchip,
                 inbuildblade: resData[key].inbuildblade,
                 battery: resData[key].battery,
@@ -49,6 +74,7 @@ export class DatabaseServiceService {
                 costperitem: resData[key].costperitem,
                 frequency: resData[key].frequency,
                 remotetype: resData[key].remotetype,
+                productType: resData[key].productType,
                 image: resData[key].image,
                 notes: resData[key].notes,
                 remoteinStock: resData[key].remoteinStock,
@@ -56,9 +82,40 @@ export class DatabaseServiceService {
                 compitablebrands: resData[key].compitablebrands,
                 cssClass: ''
               });
+              if (resData[key].frequency != null && resData[key].frequency != '') {
+                duplicatefreqArray.push(resData[key].frequency);
+              }
+
+              if (resData[key].inbuildchip != null && resData[key].inbuildchip != '') {
+                duplicatechipArray.push(resData[key].inbuildchip);
+              }
+
+              if (resData[key].inbuildblade != null && resData[key].inbuildblade != '') {
+                duplicatebladeArray.push(resData[key].inbuildblade);
+              }
+              
             }
           }
         }
+
+        // frequncy list
+        this.frequcnyList = duplicatefreqArray.filter(function (elem, index, self) {
+          return index === self.indexOf(elem);
+        });
+        this.frequcnyList.sort((a, b) => (a > b ? 1 : -1));
+      
+        // chip list
+        this.chipList = duplicatechipArray.filter(function (elem, index, self) {
+          return index === self.indexOf(elem);
+        });
+        this.chipList.sort((a, b) => (a > b ? 1 : -1));
+        
+        // blade array
+        this.bladeList = duplicatebladeArray.filter(function (elem, index, self) {
+          return index === self.indexOf(elem);
+        });
+        this.bladeList.sort((a, b) => (a > b ? 1 : -1));
+        
 
         let indexofProduct: number = 0;
 
@@ -87,17 +144,29 @@ export class DatabaseServiceService {
               tapsycode: resData[key].tapsycode,
               boxnumber: resData[key].boxnumber,
               remotetype: resData[key].remotetype,
+              productType: resData[key].productType,
+              qtyavailable: resData[key].qtyavailable,
               compitablebrands: resData[key].compitablebrands,
               image: resData[key].image,
-              blade: resData[key].blade,
+              inbuildblade: resData[key].inbuildblade,
               buttons: resData[key].buttons,
               notes: resData[key].notes,
               inStock: resData[key].inStock,
               cssClass: ''
             });
+
+            if (resData[key].inbuildblade != null && resData[key].inbuildblade != '') {
+              duplicatebladeArray.push(resData[key].inbuildblade);
+            }
           }
         }
       }
+
+      this.bladeList = duplicatebladeArray.filter(function (elem, index, self) {
+        return index === self.indexOf(elem);
+      });
+      this.bladeList.sort((a, b) => (a > b ? 1 : -1));
+      
 
       let indexofProduct: number = 0;
 
@@ -112,6 +181,7 @@ export class DatabaseServiceService {
 
       });
       });
+      this.filteredBrandProducts = this.brandedProducts;
   }
 
   gettingcarnotesforselectedCar(selectedCar: SelectedCar) {
@@ -140,6 +210,17 @@ export class DatabaseServiceService {
       });
   }
 
+  closebrandedProductsPage() {
+    this.selectedData = {
+      selectedCategory: '',
+      selectedFrequncy: '',
+      selectedBlade: '',
+      selectedChip: ''
+    }
+    this.modalController.dismiss();
+
+  }
+
   addtonotes(newNote: CarNote) {
     this.http
       .post(
@@ -148,7 +229,6 @@ export class DatabaseServiceService {
       )
       .subscribe((resData) => {
         this.carNotesforCar.push(newNote);
-        this.modalController.dismiss();
         this.presentToastAddNote();
         this.navParamService.setCarNote(newNote.selectedyear);
       });
@@ -164,16 +244,17 @@ export class DatabaseServiceService {
     toast.present();
   }
 
-  // setUsername(username: string) {
-  //   const data = JSON.stringify(username);
-  //     Storage.set({
-  //       key: 'username',
-  //       value: data,
-  //     });
-  // }
+  setUsername(username: string) {
+    const data = JSON.stringify(username);
+      Storage.set({
+        key: 'username',
+        value: data,
+      });
+  }
 
   addremoteNote(updatedRemote: Remote) {
-    this.http
+    if (updatedRemote.productType == 'remote'){
+      this.http
         .put(
           `https://tapsystock-a6450-default-rtdb.firebaseio.com/remotes/${updatedRemote.key}.json`,
           { ...updatedRemote, remoteKey: null }
@@ -181,7 +262,56 @@ export class DatabaseServiceService {
         .subscribe((resData) => {
           this.presentToastAddNote();
         });
+    } else if (updatedRemote.productType == 'remoteshell') {
+      this.http
+        .put(
+          `https://tapsystock-a6450-default-rtdb.firebaseio.com/remote-shells/${updatedRemote.key}.json`,
+          { ...updatedRemote, remoteKey: null }
+        )
+        .subscribe((resData) => {
+          this.presentToastAddNote();
+        });
+    }
+    
   }
 
+
+  filterProducts(selectedData: selectedData) {
+    this.selectedData = selectedData;
+
+    this.filteredBrandProducts = this.brandedProducts;
+
+    if (this.selectedData.selectedCategory != '') {
+      this.filteredBrandProducts = this.filteredBrandProducts.filter(product => product.productType === this.selectedData.selectedCategory);
+    }
+    if (this.selectedData.selectedFrequncy != '') {
+      this.filteredBrandProducts = this.filteredBrandProducts.filter(product => product.frequency === this.selectedData.selectedFrequncy);
+    }
+    if (this.selectedData.selectedChip != '') {
+      this.filteredBrandProducts = this.filteredBrandProducts.filter(product => product.inbuildchip === this.selectedData.selectedChip);
+    }
+    if (this.selectedData.selectedBlade != '') {
+      this.filteredBrandProducts = this.filteredBrandProducts.filter(product => product.inbuildblade === this.selectedData.selectedBlade);
+    }  
+
+    let indexofProduct: number = 0;
+
+    this.filteredBrandProducts.forEach(product => {
+      indexofProduct = indexofProduct + 1;
+      if (indexofProduct % 2 == 0) {
+       product.cssClass = "cssLeftClass";
+      }
+      else {
+       product.cssClass = "cssRightClass";
+      }
+    })
+  }
+
+  // viewSelectedItemModal(selectedtapsycode: string) {
+    
+  //   const selectedProduct: any = this.brandedProducts.find(product => product.tapsycode === selectedtapsycode);
+
+  //     this.modelService.onClickViewItem(selectedProduct);
+  // }
 
 }

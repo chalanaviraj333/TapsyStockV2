@@ -5,25 +5,20 @@
         <ion-icon slot="icon-only" name="close-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-label id="toolebarbrandTitleID" slot="end">{{selectedBrand}}</ion-label>
+    <ion-label id="toolebarbrandTitleID" slot="end">Low Stock</ion-label>
   </ion-toolbar>
 
-  <ion-toolbar class="secondtoolbarClass" color="light">
-    <ion-label color="dark" class="noofprodClass">{{databaseService.filteredBrandProducts.length}} Products</ion-label>
-    <ion-button id="fliterbutton" color="dark" size="small" slot="end" fill="outline" (click)="onClickFilter()">Filter</ion-button>
-
-  </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-grid>
     <ion-row>
-      <ion-col size-xs="6" size-sm="4" size-md="3" size-lg="3" *ngFor="let product of databaseService.filteredBrandProducts"
+      <ion-col size-xs="6" size-sm="4" size-md="3" size-lg="3" *ngFor="let product of databaseServiceTabTwo.lowStockItems"
       (click)="onClickItemModal(selectedProduct = product)" [class]=[product.cssClass]>
         <ion-grid>
           <ion-row >
             <ion-col class="ion-text-end">
-              <ion-badge class="ion-text-uppercase" fill="outline" color="warninglight">{{product.remotetype}}</ion-badge>
+              <ion-badge class="ion-text-uppercase" fill="outline" color="warninglight">{{product.productytpe}}</ion-badge>
             </ion-col>
           </ion-row>
           <ion-row>

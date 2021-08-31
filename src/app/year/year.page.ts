@@ -91,7 +91,7 @@ export class YearPage implements OnInit, OnDestroy {
 
     this.http
       .get<{ [key: string]: CarNote }>(
-        "https://tapsystock-a6450-default-rtdb.firebaseio.com/carprogrammingdetailsV2.json"
+        "https://tapsystock-a6450-default-rtdb.firebaseio.com/car-special-notes.json"
       )
       .subscribe((resData) => {
         for (const key in resData) {

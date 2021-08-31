@@ -4,7 +4,7 @@ import { Remote } from '../remote';
 import { NgForm } from "@angular/forms";
 import { RemoteNote } from '../remote-note';
 import { DatabaseServiceService } from '../database-service.service';
-// import { Storage } from '@capacitor/storage';
+import { Storage } from '@capacitor/storage';
 
 @Component({
   selector: 'app-remotedetailsmodal',
@@ -20,13 +20,13 @@ export class RemotedetailsmodalPage implements OnInit {
   constructor(private modalController: ModalController, private databaseService: DatabaseServiceService) { }
 
   ngOnInit() {
-    // Storage.get({key: 'username'}).then(
-    //   storedData => {
-    //     if (!storedData || !storedData.value) {
-    //       return;
-    //     }
-    //     this.username = JSON.parse(storedData.value);
-    //   });
+    Storage.get({key: 'username'}).then(
+      storedData => {
+        if (!storedData || !storedData.value) {
+          return;
+        }
+        this.username = JSON.parse(storedData.value);
+      });
 
   }
 
@@ -39,9 +39,14 @@ export class RemotedetailsmodalPage implements OnInit {
       username: this.username,
       notebodyText: form.value.remotenote
     };
+    if (this.selectedRemote.notes == undefined) {
+      this.selectedRemote.notes = [];
+    }
 
     this.selectedRemote.notes.push(newRemoteNote);
+    form.reset();
     this.databaseService.addremoteNote(this.selectedRemote);
+    this.modalController.dismiss();
     
   }
 

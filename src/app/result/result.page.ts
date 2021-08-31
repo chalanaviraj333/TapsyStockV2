@@ -1,12 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
 import { Remote } from "../remote";
-import { NavparamService } from "../navparam.service";
 import { ModalserviceService } from "../modalservice.service";
 import { RemoteShell } from "../remote-shell"
 import { SelectedCar } from "../selected-car";
 import { DatabaseServiceService } from "../database-service.service";
+import { IonRouterOutlet } from "@ionic/angular";
 
 interface Car {
   brand: string;
@@ -39,9 +39,8 @@ export class ResultPage implements OnInit {
 
   constructor(
     private http: HttpClient,
-    private router: Router,
     private activatedRoute: ActivatedRoute,
-    private navParamService: NavparamService,
+    private routerOutlet: IonRouterOutlet,
     private modelService: ModalserviceService,
     public databaseService: DatabaseServiceService
   ) {
@@ -64,6 +63,8 @@ export class ResultPage implements OnInit {
   }
 
   ngOnInit() {
+    // disable swipe to exit 
+    this.routerOutlet.swipeGesture = false;
 
     // getting car photo from database
     this.http
@@ -112,6 +113,8 @@ export class ResultPage implements OnInit {
               inbuildchip: resData[key].inbuildchip,
               inbuildblade: resData[key].inbuildblade,
               remotetype: resData[key].remotetype.toUpperCase(),
+              productType: resData[key].productType,
+              qtyavailable: resData[key].qtyavailable,
               battery: resData[key].battery,
               buttons: resData[key].buttons,
               costperitem: resData[key].costperitem,
@@ -159,10 +162,11 @@ export class ResultPage implements OnInit {
               key,
               tapsycode: resData[key].tapsycode,
               boxnumber: resData[key].boxnumber,
-              blade: resData[key].blade,
+              productType: resData[key].productType,
+              inbuildblade: resData[key].inbuildblade,
               buttons: resData[key].buttons,
               image: resData[key].image,
-              qtyAvailable: resData[key].qtyAvailable,
+              qtyavailable: resData[key].qtyavailable,
               notes: resData[key].notes
 
             });
@@ -189,9 +193,6 @@ export class ResultPage implements OnInit {
   async onClickItemModal(selectedtapsycode: string) {
 
     const selectedremote = this.compitableremotes.find(remote => remote.tapsycode === selectedtapsycode);
-    if (selectedremote.notes == undefined) {
-      selectedremote.notes = [];
-    }
 
     await this.modelService.onClickViewItem(selectedremote);
   }

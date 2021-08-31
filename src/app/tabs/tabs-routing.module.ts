@@ -24,10 +24,6 @@ const routes: Routes = [
         loadChildren: () => import('../more/more.module').then( m => m.MorePageModule)
       },
       {
-        path: 'lowstockpage',
-        loadChildren: () => import('../lowstock-page/lowstock-page.module').then( m => m.LowstockPagePageModule)
-      },
-      {
         path: 'tab1/model/:brandId',
         loadChildren: () => import('../model/model.module').then( m => m.ModelPageModule)
       },
@@ -38,10 +34,6 @@ const routes: Routes = [
       {
         path: 'tab1/result/:selectedBrand/:selectedModel/:selectedYear/:startyear/:endyear',
         loadChildren: () => import('../result/result.module').then( m => m.ResultPageModule)
-      },
-      {
-        path: 'tab2/remotedetails/:selectedRemote',
-        loadChildren: () => import('../remotedetails/remotedetails.module').then( m => m.RemotedetailsPageModule)
       },
       {
         path: '',

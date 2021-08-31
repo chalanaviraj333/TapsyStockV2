@@ -12,10 +12,11 @@ export interface Remote {
   frequency?: string;
   costperitem?: number;
   remotetype?: string;
+  productType: string;
   image?: string;
   notes?: Array<RemoteNote>;
   remoteinStock: boolean;
-  qtyavailable?: number;
+  qtyavailable: number;
   compitablecars?: Array<Car>;
   compitablebrands: Array<string>;
 }

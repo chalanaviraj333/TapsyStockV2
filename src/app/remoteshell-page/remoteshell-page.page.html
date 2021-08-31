@@ -1,43 +1,78 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
     <ion-title class="primarytext">All Remote Shells</ion-title>
-    <ion-buttons slot="end">
-      <ion-menu-button menu="main-menu"></ion-menu-button>
-    </ion-buttons>
+    <!-- delete before publish -->
+    <!-- <ion-buttons slot="end">
+      <ion-button slot="icon only" color="light" (click)="onCLickUpload()">
+        <ion-icon name="cloud-upload-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons> -->
+    <!-- till here -->
   </ion-toolbar>
 <ion-toolbar color="primary">
-  <ion-searchbar #search debounce="500" (ionChange)="_ionChange($event)" placeholder="Search by Brand or Blade" showCancelButton="never"></ion-searchbar>
+  <ion-searchbar #search debounce="500" (ionChange)="_ionChange($event)" placeholder="Brand, Blade, Box No" showCancelButton="never"></ion-searchbar>
+  <ion-button id="fliterbutton" color="light" size="small" slot="end" fill="outline" (click)="onClickFilter()">Filter</ion-button>
 </ion-toolbar>
 
 </ion-header>
 
 <ion-content [fullscreen]="true" [scrollEvents]="true" (ionScrollStart)="logScrollStart()">
-  <ion-grid>
-    <ion-row>
-      <ion-col size-md="6" offset-md="3" size-lg="6" offset-lg="3">
-  <ion-card *ngFor="let remoteshell of searchedItem let i = index">
+
+  <div *ngIf="!data">  
+    <ion-list *ngFor="let in of counter(8) ;let i = index" >
+      <ion-item lines="none">
+        <ion-label>
+          <h3>
+            <ion-skeleton-text animated style="width: 35%"></ion-skeleton-text>
+          </h3>
+          <p>
+            <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+          </p>
+          <p>
+            <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+          </p>
+        </ion-label>
+        <ion-thumbnail slot="end">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-thumbnail>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <ion-card *ngFor="let remoteShell of databaseTabThreeSerive.filterRemoteShells" (click)="onClick(remoteShell)"
+    class="ion-activatable ripple-parent ion-no-margin">
       <ion-card-content>
-        <ion-row no-padding>
-          <ion-col size-xs="6" size-md="6" size-lg="6">
-            <ion-card-subtitle class="primarytext" color={{remoteshell.remotetype}} id="boxNumber">BOX: {{remoteshell.boxnumber}}</ion-card-subtitle>
-            <ion-card-subtitle class="primarytext" color="medium">BLADE:{{remoteshell.blade}}</ion-card-subtitle>
-            <ion-card-subtitle class="primarytext" color="medium">Buttons:{{remoteshell.buttons}}</ion-card-subtitle>
-            <ion-card-subtitle class="primarytext" color="dark">Tapsycode:{{remoteshell.tapsycode}}</ion-card-subtitle>
-            <ion-button class="primarytext" size="small" shape="round" (click)="_lowStock(i, lowStockRemoteShellTapsyCode = remoteshell.tapsycode)" disabled={{!remoteshell.inStock}}>LOW STOCK</ion-button>
+        <ion-grid class="ion-no-padding">
+          <ion-row class="ion-no-padding">
+          <ion-col size="7" class="ion-no-margin">
+            <ion-label class="ion-text-nowrap">
+              <ion-label color="medium" class="saveTag">BOX </ion-label>
+              <ion-note id="boxnumberID"
+                color="danger"
+                class="ion-text-nowrap"
+                >{{remoteShell.boxnumber}}</ion-note
+              >
+            </ion-label>
+
+            <ion-label class="ion-text-nowrap availableClass">
+              <ion-label color="medium" class="saveTag">QTY </ion-label>
+              <ion-note id="boxnumberID"
+                color="dark"
+                class="ion-text-nowrap"
+                >{{remoteShell.qtyavailable}}</ion-note
+              >
+            </ion-label>
+            
+            <ion-card-subtitle color="dark" class="primarytext">{{remoteShell.inbuildblade}}</ion-card-subtitle>
           </ion-col>
-          <ion-col size-xs="3" size-md="4" offset-md="1" size-lg="4" offset-lg="1">
-            <img src="{{remoteshell.image}}" width="120" height="120" />
-            <ion-chip *ngIf="!remoteshell.inStock" class="primarytext" color="danger">
-              <ion-label color="danger">Low Stock</ion-label>
-            </ion-chip>
+          <ion-col size="5" class="ion-text-end ion-no-margin">
+            <img src="{{remoteShell.image}}" width="80" height="80" />
           </ion-col>
         </ion-row>
+        </ion-grid>
       </ion-card-content>
     <ion-ripple-effect type="unbounded"></ion-ripple-effect>
   </ion-card>
-  </ion-col>
-  </ion-row>
-  </ion-grid>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="ScrollToTop()" *ngIf="hideButton">

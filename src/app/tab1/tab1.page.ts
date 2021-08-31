@@ -2,8 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { IonContent, IonSearchbar } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
-import { ModalserviceService } from '../modalservice.service';
 import { Carbrand } from '../carbrand';
+import { MainModalViewServiceService } from '../main-modal-view-service.service';
 
 @Component({
   selector: 'app-tab1',
@@ -20,7 +20,7 @@ export class Tab1Page implements OnInit {
   public hideButton: boolean = false;
 
   constructor(
-    private router: Router, private http: HttpClient, private modalControlService: ModalserviceService
+    private router: Router, private http: HttpClient, private mainModalControlService: MainModalViewServiceService
   ) {
 
   }
@@ -76,7 +76,7 @@ export class Tab1Page implements OnInit {
   }
 
   onClickViewBrandProducts(selectedbrand: string) {
-    this.modalControlService.onClickViewBrandProducts(selectedbrand);
+    this.mainModalControlService.onClickViewBrandProducts(selectedbrand);
   }
 
 }

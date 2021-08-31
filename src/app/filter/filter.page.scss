@@ -6,6 +6,14 @@
   font-family: futura-pt, sans-serif;
   font-weight: 700;
   font-style: normal;
-  font-size: 20px;
+}
+
+.segmentButtonClass {
   margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 10px;
+}
+
+.extendedwidthClass {
+  min-width: 130px !important;
 }

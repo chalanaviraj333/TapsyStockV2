@@ -25,6 +25,18 @@ const routes: Routes = [
     path: 'filter',
     loadChildren: () => import('./filter/filter.module').then( m => m.FilterPageModule)
   },
+  {
+    path: 'filtertabtwopage',
+    loadChildren: () => import('./filtertabtwopage/filtertabtwopage.module').then( m => m.FiltertabtwopagePageModule)
+  },
+  {
+    path: 'filtertabthree-page',
+    loadChildren: () => import('./filtertabthree-page/filtertabthree-page.module').then( m => m.FiltertabthreePagePageModule)
+  },
+  {
+    path: 'low-stock-modal',
+    loadChildren: () => import('./low-stock-modal/low-stock-modal.module').then( m => m.LowStockModalPageModule)
+  },
 
 ];
 @NgModule({
