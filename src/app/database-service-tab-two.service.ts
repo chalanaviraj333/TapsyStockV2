@@ -37,10 +37,6 @@ export class DatabaseServiceTabTwoService {
       .get<{ [key: string]: Remote }>(
         "https://tapsystock-a6450-default-rtdb.firebaseio.com/remotes.json"
       )
-    // this.http
-    // .get<{ [key: string]: Remote }>(
-    //   "https://tapsystock-a6450-default-rtdb.firebaseio.com/remotes-clone-delete-later.json"
-    // )
       .subscribe((resData) => {
         for (const key in resData) {
           if (resData.hasOwnProperty(key)) {
