@@ -110,6 +110,7 @@ export class ResultPage implements OnInit {
               key,
               tapsycode: resData[key].tapsycode,
               boxnumber: resData[key].boxnumber,
+              shell: resData[key].shell,
               inbuildchip: resData[key].inbuildchip,
               inbuildblade: resData[key].inbuildblade,
               remotetype: resData[key].remotetype.toUpperCase(),

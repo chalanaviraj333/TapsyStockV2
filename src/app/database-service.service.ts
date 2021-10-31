@@ -66,6 +66,7 @@ export class DatabaseServiceService {
                 key,
                 tapsycode: resData[key].tapsycode,
                 boxnumber: resData[key].boxnumber,
+                shell: resData[key].shell,
                 qtyavailable: resData[key].qtyavailable,
                 inbuildchip: resData[key].inbuildchip,
                 inbuildblade: resData[key].inbuildblade,

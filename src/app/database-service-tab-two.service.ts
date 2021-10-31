@@ -44,6 +44,7 @@ export class DatabaseServiceTabTwoService {
                 key,
                 tapsycode: resData[key].tapsycode,
                 boxnumber: Number(resData[key].boxnumber),
+                shell: resData[key].shell,
                 inbuildchip: resData[key].inbuildchip,
                 inbuildblade: resData[key].inbuildblade,
                 battery: resData[key].battery,
@@ -160,39 +161,4 @@ export class DatabaseServiceTabTwoService {
     });
   }
 
-  // onCLickLowStockItems() {
-  //   this.http
-  //   .get<{ [key: string]: Remote }>(
-  //     "https://tapsystock-a6450-default-rtdb.firebaseio.com/remotes-clone-delete-later.json"
-  //   )
-  //     .subscribe((resData) => {
-  //       for (const key in resData) {
-  //         if (resData.hasOwnProperty(key)) {
-  //           if (resData[key].qtyavailable < 5) {
-  //             console.log(key);
-              // this.lowStockItems.push({
-              //   key,
-              //   tapsycode: resData[key].tapsycode,
-              //   boxnumber: resData[key].boxnumber,
-              //   inbuildchip: resData[key].inbuildchip,
-              //   inbuildblade: resData[key].inbuildblade,
-              //   battery: resData[key].battery,
-              //   qtyavailable: resData[key].qtyavailable,
-              //   buttons: resData[key].buttons,
-              //   costperitem: resData[key].costperitem,
-              //   frequency: resData[key].frequency,
-              //   remotetype: resData[key].remotetype,
-              //   productType: resData[key].productType,
-              //   image: resData[key].image,
-              //   notes: resData[key].notes,
-              //   remoteinStock: resData[key].remoteinStock,
-              //   compitablecars: resData[key].compitablecars,
-              //   compitablebrands: resData[key].compitablebrands
-              // })
-  //           }
-              
-  //         }
-  //       }
-  //     });
-  // }
 }

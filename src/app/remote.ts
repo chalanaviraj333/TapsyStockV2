@@ -5,6 +5,7 @@ export interface Remote {
   key: string;
   tapsycode: string;
   boxnumber: number;
+  shell: string;
   inbuildchip?: string;
   inbuildblade?: string;
   battery?: string;
