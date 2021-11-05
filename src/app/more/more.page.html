@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class="primarytext">More</ion-title>
+  </ion-toolbar>
+  <ion-toolbar color="primary">
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content>
+  <!-- <ion-item id="usernameInputID" class="ion-no-padding">
+    <ion-input [(ngModel)]="username" placeholder="Username"></ion-input>
+    <ion-button fill="outline" color="success" (click)="onClickUsernameSave()" [disabled]="username == ''">SAVE</ion-button>
+  </ion-item> -->
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6" class="ion-text-center">
+          <ion-button class="ButtonLabelClass" color="success" expand="block" (click)="onClickMostSelling()">
+            Most Selling
+          </ion-button>
+      </ion-col>
+      <ion-col size="6" class="ion-text-center">
+        <ion-button class="ButtonLabelClass" color="danger" expand="block" fill="outline" (click)="onClickLowStock()">
+          Low Stock
+        </ion-button>
+    </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

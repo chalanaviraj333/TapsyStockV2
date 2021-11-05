@@ -1,0 +1,56 @@
+<ion-header translucent>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button text="Brands" defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="primarytext">{{selectedBrand}}</ion-title>
+  </ion-toolbar>
+<ion-toolbar color="primary">
+  <ion-searchbar #search debounce="500" (ionChange)="_ionChange($event)" placeholder="Enter Models" showCancelButton="never" animated></ion-searchbar>
+</ion-toolbar>
+</ion-header>
+
+<ion-content [scrollEvents]="true" (ionScrollStart)="logScrollStart()">
+
+  <div id="errorContent">
+    <ion-chip *ngIf="isFetching" color="danger">
+      <ion-icon [name]=iconerror color="danger"></ion-icon>
+      <ion-label>{{printerror}}</ion-label>
+    </ion-chip>
+  </div>
+
+  <ion-list>
+    <!-- <ion-item-sliding *ngFor="let model of searchedItem">
+      <ion-item-options side="end">
+        <ion-item-option id="allprodsslideID" class="ion-text-center">All <br> Products</ion-item-option>
+      </ion-item-options> -->
+      <ion-item *ngFor="let model of searchedItem" (click)="onClick(x = model.model, startyear = model.startyear, endyear = model.endyear)" id="carbrandItemID" class="ion-no-padding ion-activatable ripple-parent">
+        <ion-grid>
+          <ion-row no-padding>
+            <ion-col size="7">
+              <ion-label class="ion-texrt-wrap">
+                <ion-label color="dark" id="carmodelID">
+                  {{model.model}}
+                </ion-label>
+                <ion-note color="danger" id="yearsRangeID">
+                  {{model.startyear}}-{{model.endyear}}
+                </ion-note>
+              </ion-label>
+            </ion-col>
+            <ion-col size="5" class="ion-text-end">
+              <img id="modelImageID" src="{{model.icon}}" size="small" height="70">
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+        </ion-item>
+      <!-- </ion-item-sliding> -->
+  </ion-list>
+  
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="ScrollToTop()" *ngIf="hideButton">
+      <ion-icon name="arrow-up-circle"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>
