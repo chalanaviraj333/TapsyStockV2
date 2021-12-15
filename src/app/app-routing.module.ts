@@ -37,6 +37,10 @@ const routes: Routes = [
     path: 'low-stock-modal',
     loadChildren: () => import('./low-stock-modal/low-stock-modal.module').then( m => m.LowStockModalPageModule)
   },
+  {
+    path: 'view-garage-remote-details',
+    loadChildren: () => import('./view-garage-remote-details/view-garage-remote-details.module').then( m => m.ViewGarageRemoteDetailsPageModule)
+  },
 
 ];
 @NgModule({

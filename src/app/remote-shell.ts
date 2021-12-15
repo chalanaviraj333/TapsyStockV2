@@ -5,6 +5,7 @@ export interface RemoteShell {
   key: string;
   tapsycode: string;
   boxnumber: number;
+  shell: string;
   remotetype?: string;
   qtyavailable: number;
   productType: string;

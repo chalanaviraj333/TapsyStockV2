@@ -1,25 +1,15 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
-    <ion-title class="primarytext">All Remotes</ion-title>
-    <!-- delete before publish -->
-    <!-- <ion-buttons slot="end">
-      <ion-button slot="icon only" color="light" (click)="onCLickUpload()">
-        <ion-icon name="cloud-upload-outline"></ion-icon>
-      </ion-button> -->
-      <!-- <ion-button slot="icon only" color="light" (click)="onCLickDelete()">
-        <ion-icon name="trash"></ion-icon>
-      </ion-button> -->
-    <!-- </ion-buttons> -->
-    <!-- till here -->
+    <ion-title class="primarytext">KD/Xzhorse Remotes</ion-title>
   </ion-toolbar>
-  <ion-toolbar color="primary">
-    <ion-searchbar #search debounce="500" (ionChange)="_ionChange($event)" placeholder="Brand, Tapsy Code, Box No" showCancelButton="never"></ion-searchbar>
-    <ion-button id="fliterbutton" color="light" size="small" slot="end" fill="outline" (click)="onClickFilter()">Filter</ion-button>
-  </ion-toolbar>
+<ion-toolbar color="primary">
+  <!-- <ion-searchbar #search debounce="500" (ionChange)="_ionChange($event)" placeholder="Brand, Blade, Box No" showCancelButton="never"></ion-searchbar>
+  <ion-button id="fliterbutton" color="light" size="small" slot="end" fill="outline" (click)="onClickFilter()">Filter</ion-button> -->
+</ion-toolbar>
 
 </ion-header>
 
-<ion-content [scrollEvents]="true" (ionScrollStart)="logScrollStart()">
+<ion-content [fullscreen]="true" [scrollEvents]="true" (ionScrollStart)="logScrollStart()">
 
   <div *ngIf="!data">  
     <ion-list *ngFor="let in of counter(8) ;let i = index" >
@@ -42,7 +32,7 @@
     </ion-list>
   </div>
 
-  <ion-card *ngFor="let remote of databaseTabTwoService.filterRemotes" (click)="onClick(remote)"
+  <ion-card *ngFor="let product of xhorsekdDatabaseService.filterProductArray"
     class="ion-activatable ripple-parent ion-no-margin">
       <ion-card-content>
         <ion-grid class="ion-no-padding">
@@ -50,11 +40,11 @@
           <ion-col size="7" class="ion-no-margin">
             <ion-label class="ion-text-nowrap">
               <ion-label color="medium" class="saveTag">BOX </ion-label>
-              <ion-label color="kdremotes" class="shellClass">{{remote.shell}}</ion-label>
+              <ion-label color="kdremotes" class="shellClass">{{product.shell}}</ion-label>
               <ion-note id="boxnumberID"
                 color="danger"
                 class="ion-text-nowrap"
-                >{{remote.boxnumber}}</ion-note
+                >{{product.boxnumber}}</ion-note
               >
             </ion-label>
 
@@ -63,23 +53,22 @@
               <ion-note id="boxnumberID"
                 color="dark"
                 class="ion-text-nowrap"
-                >{{remote.qtyavailable}}</ion-note
+                >{{product.qtyavailable}}</ion-note
               >
             </ion-label>
             
-            <ion-card-subtitle color="dark" class="primarytext">{{remote.frequency}}</ion-card-subtitle>
-            <ion-card-subtitle color="dark" class="primarytext">{{remote.inbuildblade}}</ion-card-subtitle>
-            <ion-card-subtitle color="dark" class="primarytext">{{remote.inbuildchip}}</ion-card-subtitle>
+            <ion-card-subtitle color="danger" class="primarytext">{{product.productcategory}} Remote</ion-card-subtitle>
+            <ion-card-subtitle color="dark" class="primarytext">{{product.name}}</ion-card-subtitle>
           </ion-col>
           <ion-col size="5" class="ion-text-end ion-no-margin">
-            <img src="{{remote.image}}" width="80" height="80" />
+              <ion-badge color="success">{{product.series}} Series</ion-badge>
+            <img src="{{product.image}}" width="80" height="80" />
           </ion-col>
         </ion-row>
         </ion-grid>
       </ion-card-content>
     <ion-ripple-effect type="unbounded"></ion-ripple-effect>
   </ion-card>
-
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="ScrollToTop()" *ngIf="hideButton">

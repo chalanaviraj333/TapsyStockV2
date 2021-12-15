@@ -4,11 +4,13 @@ import { AddnotesPage } from './addnotes/addnotes.page';
 import { FilterPage } from './filter/filter.page';
 import { FiltertabthreePagePage } from './filtertabthree-page/filtertabthree-page.page';
 import { FiltertabtwopagePage } from './filtertabtwopage/filtertabtwopage.page';
+import { GarageRemote } from './interfaces/garage-remote';
 import { LowStockModalPage } from './low-stock-modal/low-stock-modal.page';
 import { Remote } from './remote';
 import { RemoteShell } from './remote-shell';
 import { RemotedetailsmodalPage } from './remotedetailsmodal/remotedetailsmodal.page';
 import { SelectedCar } from './selected-car';
+import { ViewGarageRemoteDetailsPage } from './view-garage-remote-details/view-garage-remote-details.page';
 
 @Injectable({
   providedIn: 'root'
@@ -93,6 +95,19 @@ export class ModalserviceService {
     return await modal.present();
 
   }
+
+  async onClickViewGarageRemote(selectedGarageRemote: GarageRemote) {
+    const modal = await this.modalController.create({
+      component: ViewGarageRemoteDetailsPage,
+      componentProps: {
+        "selectedGarageRemote": selectedGarageRemote
+      },
+      cssClass: 'view-Remote-Details-class',
+      swipeToClose: true,
+    });
+    return await modal.present();
+  }
+
 
 
 }

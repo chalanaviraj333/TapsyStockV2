@@ -145,6 +145,7 @@ export class DatabaseServiceService {
               key,
               tapsycode: resData[key].tapsycode,
               boxnumber: resData[key].boxnumber,
+              shell: resData[key].shell,
               remotetype: resData[key].remotetype,
               productType: resData[key].productType,
               qtyavailable: resData[key].qtyavailable,

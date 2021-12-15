@@ -20,6 +20,10 @@ const routes: Routes = [
         loadChildren: () => import('../remoteshell-page/remoteshell-page.module').then( m => m.RemoteshellPagePageModule)
       },
       {
+        path: 'kd-xhorsepage',
+        loadChildren: () => import('../kd-xhorsepage/kd-xhorsepage.module').then( m => m.KdXhorsepagePageModule)
+      },
+      {
         path: 'more',
         loadChildren: () => import('../more/more.module').then( m => m.MorePageModule)
       },
@@ -38,6 +42,10 @@ const routes: Routes = [
       {
         path: 'more/lowstockitems',
         loadChildren: () => import('../low-stock-items/low-stock-items.module').then( m => m.LowStockItemsPageModule)
+      },
+      {
+        path: 'more/all-garage-remotes',
+        loadChildren: () => import('../garage-remotes/all-garage-remotes/all-garage-remotes.module').then( m => m.AllGarageRemotesPageModule)
       },
       {
         path: '',

@@ -47,5 +47,9 @@ export class MorePage implements OnInit {
     this.router.navigateByUrl('tabs/more/lowstockitems');
   }
 
+  onClickGarageRemotes() {
+    this.router.navigateByUrl('tabs/more/all-garage-remotes');
+  }
+
 }
 

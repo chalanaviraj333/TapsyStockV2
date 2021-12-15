@@ -1,13 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
     <ion-title class="primarytext">All Remote Shells</ion-title>
-    <!-- delete before publish -->
-    <!-- <ion-buttons slot="end">
-      <ion-button slot="icon only" color="light" (click)="onCLickUpload()">
-        <ion-icon name="cloud-upload-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons> -->
-    <!-- till here -->
   </ion-toolbar>
 <ion-toolbar color="primary">
   <ion-searchbar #search debounce="500" (ionChange)="_ionChange($event)" placeholder="Brand, Blade, Box No" showCancelButton="never"></ion-searchbar>
@@ -47,6 +40,7 @@
           <ion-col size="7" class="ion-no-margin">
             <ion-label class="ion-text-nowrap">
               <ion-label color="medium" class="saveTag">BOX </ion-label>
+              <ion-label color="kdremotes" class="shellClass">{{remoteShell.shell}}</ion-label>
               <ion-note id="boxnumberID"
                 color="danger"
                 class="ion-text-nowrap"

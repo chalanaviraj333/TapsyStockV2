@@ -46,6 +46,7 @@ export class DatabaseServiceTabThreeService {
                 key,
                 tapsycode: resData[key].tapsycode,
                 boxnumber: resData[key].boxnumber,
+                shell: resData[key].shell,
                 remotetype: resData[key].remotetype,
                 productType: resData[key].productType,
                 compitablebrands: resData[key].compitablebrands,

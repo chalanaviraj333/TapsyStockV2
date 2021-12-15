@@ -163,6 +163,7 @@ export class ResultPage implements OnInit {
               key,
               tapsycode: resData[key].tapsycode,
               boxnumber: resData[key].boxnumber,
+              shell: resData[key].shell,
               productType: resData[key].productType,
               inbuildblade: resData[key].inbuildblade,
               buttons: resData[key].buttons,
