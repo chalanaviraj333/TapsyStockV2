@@ -14,7 +14,10 @@ export interface RemoteShell {
   inbuildblade: string;
   buttons: string
   notes: Array<RemoteNote>;
-  inStock?: boolean;
+  recentAddedQuantity: number;
+  recentmoreStockAddDate: Date;
+  totalSale: number;
+  moreStock: boolean;
   compitablecars?: Array<Car>;
   
 }

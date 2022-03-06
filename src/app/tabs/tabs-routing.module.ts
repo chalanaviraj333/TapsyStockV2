@@ -40,11 +40,15 @@ const routes: Routes = [
         loadChildren: () => import('../result/result.module').then( m => m.ResultPageModule)
       },
       {
-        path: 'more/lowstockitems',
+        path: 'low-stock-tab',
+        loadChildren: () => import('../low-stock-tab/low-stock-tab.module').then( m => m.LowStockTabPageModule)
+      },
+      {
+        path: 'lowstockitems',
         loadChildren: () => import('../low-stock-items/low-stock-items.module').then( m => m.LowStockItemsPageModule)
       },
       {
-        path: 'more/all-garage-remotes',
+        path: 'all-garage-remotes',
         loadChildren: () => import('../garage-remotes/all-garage-remotes/all-garage-remotes.module').then( m => m.AllGarageRemotesPageModule)
       },
       {

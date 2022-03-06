@@ -11,6 +11,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavparamService } from './navparam.service';
 import { FormsModule } from '@angular/forms';
+import { DocumentViewer } from '@awesome-cordova-plugins/document-viewer/ngx';
+import { Printer } from '@awesome-cordova-plugins/printer/ngx';
 
 
 
@@ -22,6 +24,8 @@ import { FormsModule } from '@angular/forms';
     StatusBar,
     SplashScreen,
     NavparamService,
+    DocumentViewer,
+    Printer,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

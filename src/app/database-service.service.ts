@@ -3,13 +3,11 @@ import { Injectable } from "@angular/core";
 import { ModalController, ToastController } from "@ionic/angular";
 import { CarNote } from "./car-note";
 import { NavparamService } from "./navparam.service";
-// import { ModalserviceService } from "./modalservice.service";
 import { SelectedCar } from "./selected-car";
 import { Storage } from '@capacitor/storage';
 import { Remote } from "./remote";
 import { Carmodel } from "./carmodel";
 import { RemoteShell } from "./remote-shell";
-import { OrderDetails } from "./order-details";
 
 export interface selectedData {
   selectedCategory: string;
@@ -79,7 +77,6 @@ export class DatabaseServiceService {
                 productType: resData[key].productType,
                 image: resData[key].image,
                 notes: resData[key].notes,
-                remoteinStock: resData[key].remoteinStock,
                 compitablecars: resData[key].compitablecars,
                 compitablebrands: resData[key].compitablebrands,
                 cssClass: ''
@@ -154,7 +151,6 @@ export class DatabaseServiceService {
               inbuildblade: resData[key].inbuildblade,
               buttons: resData[key].buttons,
               notes: resData[key].notes,
-              inStock: resData[key].inStock,
               cssClass: ''
             });
 
@@ -255,7 +251,7 @@ export class DatabaseServiceService {
       });
   }
 
-  addremoteNote(updatedRemote: Remote) {
+  addProductNote(updatedRemote: Remote) {
     if (updatedRemote.productType == 'remote'){
       this.http
         .put(
@@ -309,12 +305,5 @@ export class DatabaseServiceService {
       }
     })
   }
-
-  // viewSelectedItemModal(selectedtapsycode: string) {
-    
-  //   const selectedProduct: any = this.brandedProducts.find(product => product.tapsycode === selectedtapsycode);
-
-  //     this.modelService.onClickViewItem(selectedProduct);
-  // }
 
 }

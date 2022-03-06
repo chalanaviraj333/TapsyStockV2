@@ -120,10 +120,13 @@ export class ResultPage implements OnInit {
               buttons: resData[key].buttons,
               costperitem: resData[key].costperitem,
               frequency: resData[key].frequency,
-              remoteinStock: resData[key].remoteinStock,
               compitablebrands: resData[key].compitablebrands,
               image: resData[key].image,
               notes: resData[key].notes,
+              recentAddedQuantity: resData[key].recentAddedQuantity,
+              recentmoreStockAddDate: resData[key].recentmoreStockAddDate,
+              totalSale: resData[key].totalSale,
+              moreStock: resData[key].moreStock,
               compitablecars: resData[key].compitablecars,
             });
             this.compitableremotes.sort((a, b) =>
@@ -169,6 +172,10 @@ export class ResultPage implements OnInit {
               buttons: resData[key].buttons,
               image: resData[key].image,
               qtyavailable: resData[key].qtyavailable,
+              recentAddedQuantity: resData[key].recentAddedQuantity,
+              recentmoreStockAddDate: resData[key].recentmoreStockAddDate,
+              totalSale: resData[key].totalSale,
+              moreStock: resData[key].moreStock,
               notes: resData[key].notes
 
             });

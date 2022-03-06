@@ -1,19 +1,14 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
     <ion-title class="primarytext">All Remotes</ion-title>
-    <!-- delete before publish -->
-    <!-- <ion-buttons slot="end">
-      <ion-button slot="icon only" color="light" (click)="onCLickUpload()">
-        <ion-icon name="cloud-upload-outline"></ion-icon>
-      </ion-button> -->
-      <!-- <ion-button slot="icon only" color="light" (click)="onCLickDelete()">
-        <ion-icon name="trash"></ion-icon>
-      </ion-button> -->
-    <!-- </ion-buttons> -->
-    <!-- till here -->
+    <ion-buttons slot="end">
+      <ion-button (click)="doRefresh()">
+        <ion-icon slot="icon-only" name="refresh-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
   <ion-toolbar color="primary">
-    <ion-searchbar #search debounce="500" (ionChange)="_ionChange($event)" placeholder="Brand, Tapsy Code, Box No" showCancelButton="never"></ion-searchbar>
+    <ion-searchbar #search debounce="500" (ionChange)="_ionChange($event)" placeholder="Brand, SKU, Box No" showCancelButton="never"></ion-searchbar>
     <ion-button id="fliterbutton" color="light" size="small" slot="end" fill="outline" (click)="onClickFilter()">Filter</ion-button>
   </ion-toolbar>
 

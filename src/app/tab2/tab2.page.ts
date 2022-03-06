@@ -39,18 +39,6 @@ export class Tab2Page implements OnInit, OnDestroy {
     }, 1000);
   }
 
-  // delete before publish
-  onCLickUpload() {
-    this.databaseTabTwoService.uploadclonetoDatabase();
-  }
-
-  onCLickDelete() {
-    this.databaseTabTwoService.deleteDuplicates();
-  }
-
-
-
-  // till here
 
   ngOnDestroy() {}
 
@@ -81,6 +69,11 @@ export class Tab2Page implements OnInit, OnDestroy {
 
   onClickFilter() {
     this.modelService.onClickFilterTabTwo();
+  }
+
+  doRefresh() {
+    
+    this.databaseTabTwoService.getAllRemotes();
   }
 
 }

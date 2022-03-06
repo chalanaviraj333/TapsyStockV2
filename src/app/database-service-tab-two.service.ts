@@ -1,10 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { selectedData } from './database-service.service';
-import { LowStockItem } from './low-stock-item';
-import { OrderDetails } from './order-details';
 import { Remote } from './remote';
-import { RemoteOrder } from './remote-order';
 
 @Injectable({
   providedIn: 'root'
@@ -16,9 +13,8 @@ export class DatabaseServiceTabTwoService {
   public frequcnyList: Array<string> = [];
   public chipList: Array<string> = [];
   public bladeList: Array<string> = [];
-  public pastTwoMothOrders: Array<OrderDetails> = [];
 
-  public lowStockItems : Array<LowStockItem> = [];
+  public lowStockItems : Array<any> = [];
 
   public selectedData: selectedData = {
     selectedCategory: '',
@@ -60,7 +56,10 @@ export class DatabaseServiceTabTwoService {
                 productType: resData[key].productType,
                 image: resData[key].image,
                 notes: resData[key].notes,
-                remoteinStock: resData[key].remoteinStock,
+                recentAddedQuantity: resData[key].recentAddedQuantity,
+                recentmoreStockAddDate: resData[key].recentmoreStockAddDate,
+                totalSale: resData[key].totalSale,
+                moreStock: resData[key].moreStock,
                 compitablecars: resData[key].compitablecars,
                 compitablebrands: resData[key].compitablebrands
               });
@@ -132,129 +131,28 @@ export class DatabaseServiceTabTwoService {
       this.filterRemotes = this.filterRemotes.filter((currentremote) => {
         if (currentremote.compitablebrands !== undefined) {
           let searchWord =
-            currentremote.tapsycode +
+            currentremote.tapsycode + currentremote.shell + currentremote.boxnumber + 
             currentremote.compitablebrands.toString();
           return searchWord.toLowerCase().indexOf(entervalue.toLowerCase()) > -1;
         } else {
-          let searchWord = currentremote.tapsycode;
+          let searchWord = currentremote.tapsycode + currentremote.shell + currentremote.boxnumber;
           return searchWord.toLowerCase().indexOf(entervalue.toLowerCase()) > -1;
         }
       });
     }
   }
 
-  uploadclonetoDatabase() {
-    this.allRemotes.forEach(remote => {
-      this.http.post('https://tapsystock-a6450-default-rtdb.firebaseio.com/remotes.json', {...remote, remoteinStock: null, qtyavailable: 0, key: null}).subscribe(
-      resData => {
-          console.log(resData);
-        }
-    );
-    });
-  }
-
-  deleteDuplicates() {
-    this.allRemotes.forEach(remote => {
-      if (remote.qtyavailable != 0) {
-        this.http.delete(`https://tapsystock-a6450-default-rtdb.firebaseio.com/remotes/${remote.key}.json`).subscribe
-        (resData => {
-          console.log(resData);
-
-    })
-      }
-    });
-  }
-
-    // getallordersform database 
-    getTwoMonthOrders() {
-      const currentYear: number = new Date().getFullYear();
-      const pasttwoMonth: number = new Date().getMonth() - 1;
-
-      this.http
-        .get<{ [key: string]: OrderDetails }>(
-          "https://tapsystock-a6450-default-rtdb.firebaseio.com/all-orders.json"
-        )
-        .subscribe((resData) => {
-          for (const key in resData) {
-            if (resData.hasOwnProperty(key)) {
-              if (resData[key].year == currentYear && resData[key].month > pasttwoMonth )
-              {
-                this.pastTwoMothOrders.push({
-                  key,
-                  year: resData[key].year,
-                  month: resData[key].month,
-                  remoteList: resData[key].remoteList,
-                  remoteshelllist: resData[key].remoteshelllist
-                });
-                console.log(this.pastTwoMothOrders);
-              }
-          }
-        }
-      });
-  
-    }
-
     findLowStockItems() {
-      this.lowStockItems = [];
+      console.log('start');
       
-      const lowStockRemotes: Array<Remote> = [];
-      const lowStockRemotesNotSold: Array<LowStockItem> = [];
-      const lowStockRemotesSold: Array<LowStockItem> = [];
+      this.lowStockItems = [];
+      this.getAllRemotes();
 
-      const lastTwoMonthRemoteOrders: Array<RemoteOrder> = [];
-
-      this.pastTwoMothOrders.forEach(monthOrder => {
-        monthOrder.remoteList.forEach(remoteOrder => {
-          const allreadyinArray: RemoteOrder = lastTwoMonthRemoteOrders.find((order) => order.tapsycode === remoteOrder.tapsycode);
-
-          if (allreadyinArray == undefined) {
-            lastTwoMonthRemoteOrders.push(remoteOrder);
-          }
-          else {
-            const index = lastTwoMonthRemoteOrders.indexOf(allreadyinArray);
-            lastTwoMonthRemoteOrders[index].quantity = lastTwoMonthRemoteOrders[index].quantity + remoteOrder.quantity;
-          }
-        });
-      });
 
       this.allRemotes.forEach(remote => {
-        if (remote.qtyavailable < 2){
-          lowStockRemotes.push(remote);
-        }
-      });
-
-      lowStockRemotes.forEach(remote => {
-        const inOrderedList = lastTwoMonthRemoteOrders.find((orderRemote) => orderRemote.tapsycode === remote.tapsycode);
-
-        if (inOrderedList == undefined) {
-          lowStockRemotesNotSold.push({
-            tapsycode: remote.tapsycode,
-            image: remote.image,
-            boxnumber: remote.boxnumber,
-            shell: remote.shell,
-            producttype: remote.productType,
-            qtyavaliable: remote.qtyavailable,
-            soldontwomonths: 0
+            if (remote.qtyavailable < 2){
+              this.lowStockItems.push(remote);
+            }
           });
-        }
-        else {
-          lowStockRemotesSold.push({
-            tapsycode: remote.tapsycode,
-            image: remote.image,
-            boxnumber: remote.boxnumber,
-            shell: remote.shell,
-            producttype: remote.productType,
-            qtyavaliable: remote.qtyavailable,
-            soldontwomonths: inOrderedList.quantity
-          })
-        }
-      });
-
-      this.lowStockItems = lowStockRemotesNotSold;
-      lowStockRemotesSold.forEach(remote => {
-        this.lowStockItems.unshift(remote);
-      });
-    
     }
-
 }

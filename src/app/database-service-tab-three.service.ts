@@ -55,7 +55,10 @@ export class DatabaseServiceTabThreeService {
                 inbuildblade: resData[key].inbuildblade,
                 buttons: resData[key].buttons,
                 notes: resData[key].notes,
-                inStock: resData[key].inStock,
+                recentAddedQuantity: resData[key].recentAddedQuantity,
+                recentmoreStockAddDate: resData[key].recentmoreStockAddDate,
+                moreStock: resData[key].moreStock,
+                totalSale: resData[key].totalSale,
               });
 
               this.allRemoteShells.sort((a, b) => (a.boxnumber > b.boxnumber ? 1 : -1));
@@ -109,24 +112,15 @@ export class DatabaseServiceTabThreeService {
       this.filterRemoteShells = this.filterRemoteShells.filter((currentremote) => {
         if (currentremote.compitablebrands !== undefined) {
           let searchWord =
-            currentremote.boxnumber + currentremote.inbuildblade + 
+          currentremote.tapsycode + currentremote.shell + currentremote.boxnumber +  
             currentremote.compitablebrands.toString();
           return searchWord.toLowerCase().indexOf(entervalue.toLowerCase()) > -1;
         } else {
-          let searchWord = currentremote.boxnumber + currentremote.inbuildblade;
+          let searchWord = currentremote.tapsycode + currentremote.shell + currentremote.boxnumber;
           return searchWord.toLowerCase().indexOf(entervalue.toLowerCase()) > -1;
         }
       });
     }
   }
 
-  uploadclonetoDatabase() {
-    this.allRemoteShells.forEach(remoteShell => {
-      this.http.post('https://tapsystock-a6450-default-rtdb.firebaseio.com/remote-shells.json', {...remoteShell, inStock: null, qtyavailable: 10, key: null}).subscribe(
-      resData => {
-          console.log(resData);
-        }
-    );
-    });
-  }
 }

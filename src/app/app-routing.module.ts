@@ -41,7 +41,6 @@ const routes: Routes = [
     path: 'view-garage-remote-details',
     loadChildren: () => import('./view-garage-remote-details/view-garage-remote-details.module').then( m => m.ViewGarageRemoteDetailsPageModule)
   },
-
 ];
 @NgModule({
   imports: [

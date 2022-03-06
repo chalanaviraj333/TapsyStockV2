@@ -28,7 +28,6 @@ export class MorePage implements OnInit {
         });
 
     this.databaseTabTwoService.getAllRemotes();
-    this.databaseTabTwoService.getTwoMonthOrders();
   }
 
   onClickUsernameSave() {

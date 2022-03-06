@@ -17,6 +17,17 @@ export class RemotedetailsmodalPage implements OnInit {
 
   private username: string = 'User1';
 
+  sliderOpt = {
+    zoom: {
+      maxRatio: 1,
+    },
+  };
+
+  slideOptsNew = {
+    initialSlide: 0,
+    speed: 400
+  };
+
   constructor(private modalController: ModalController, private databaseService: DatabaseServiceService) { }
 
   ngOnInit() {
@@ -45,7 +56,7 @@ export class RemotedetailsmodalPage implements OnInit {
 
     this.selectedRemote.notes.push(newRemoteNote);
     form.reset();
-    this.databaseService.addremoteNote(this.selectedRemote);
+    this.databaseService.addProductNote(this.selectedRemote);
     this.modalController.dismiss();
     
   }

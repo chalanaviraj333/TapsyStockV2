@@ -16,8 +16,11 @@ export interface Remote {
   productType: string;
   image?: string;
   notes?: Array<RemoteNote>;
-  remoteinStock: boolean;
   qtyavailable: number;
+  recentAddedQuantity: number;
+  recentmoreStockAddDate: Date;
+  totalSale: number;
+  moreStock: boolean;
   compitablecars?: Array<Car>;
   compitablebrands: Array<string>;
 }

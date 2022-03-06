@@ -37,14 +37,6 @@ export class RemoteshellPagePage implements OnInit {
     }, 1000);
   }
 
-   // delete before publish
-   onCLickUpload() {
-    this.databaseTabThreeSerive.uploadclonetoDatabase();
-  }
-
-
-
-  // till here
 
   _ionChange(event) {
     const entervalue = event.target.value;
@@ -72,5 +64,10 @@ export class RemoteshellPagePage implements OnInit {
 
   onClickFilter() {
     this.modelService.onClickFilterTabThree();
+  }
+
+  doRefresh() {
+    
+    this.databaseTabThreeSerive.getAllRemoteShells();
   }
 }

@@ -15,7 +15,7 @@ export class LowStockItemsPage implements OnInit {
   constructor(public databaseTabTwoService: DatabaseServiceTabTwoService) { }
 
   ngOnInit() {
-    this.databaseTabTwoService.findLowStockItems();
+    // this.databaseTabTwoService.findLowStockItems();
   }
 
   logScrollStart() {

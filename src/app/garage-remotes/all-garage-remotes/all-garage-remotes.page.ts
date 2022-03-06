@@ -45,4 +45,9 @@ export class AllGarageRemotesPage implements OnInit {
     await this.modelService.onClickViewGarageRemote(selectedGarageRemote);
   }
 
+  doRefresh() {
+    this.garageRemotesService.getAllGarageRemotes();
+    // this.garageRemotesService.addmoreItems();
+  }
+
 }

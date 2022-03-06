@@ -32,7 +32,9 @@ export class GarageRemoteHttpService {
                 compatibleBrand: resData[key].compatibleBrand,
                 productType: resData[key].productType,
                 qtyavailable: resData[key].qtyavailable,
+                sellingPrice: resData[key].sellingPrice,
                 image: resData[key].image,
+                instructionsImage: resData[key].instructionsImage,
                 notes: resData[key].notes,
                 compatibleModels: resData[key].compatibleModels,
               });
