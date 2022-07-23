@@ -1,11 +1,11 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
     <ion-title class="primarytext">All Remotes</ion-title>
-    <ion-buttons slot="end">
+    <!-- <ion-buttons slot="end">
       <ion-button (click)="doRefresh()">
         <ion-icon slot="icon-only" name="refresh-circle-outline"></ion-icon>
       </ion-button>
-    </ion-buttons>
+    </ion-buttons> -->
   </ion-toolbar>
   <ion-toolbar color="primary">
     <ion-searchbar #search debounce="500" (ionChange)="_ionChange($event)" placeholder="Brand, SKU, Box No" showCancelButton="never"></ion-searchbar>
